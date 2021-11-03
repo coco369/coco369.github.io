@@ -456,6 +456,26 @@
 <h3 id="1-Logstash的工作原理"><a href="#1-Logstash的工作原理" class="headerlink" title="1. Logstash的工作原理"></a>1. Logstash的工作原理</h3><p>​        logstash的事件处理流程分为三个阶段：inputs - - - &gt; filers - - - &gt; outputs，即 接受输入的日志 —&gt; 按过滤条件进行处理日志 —&gt; 输出过滤后的日志。其支持所有抛出的日志类型数据。</p>
 <p>简单的结构图：</p>
 <p><img src="/medias/art_img/logstash%E7%BB%93%E6%9E%84%E5%9B%BE1.png"></p>
+<h4 id="1-1-inputs-输入"><a href="#1-1-inputs-输入" class="headerlink" title="1.1 inputs 输入"></a>1.1 inputs 输入</h4><p>​    常见的输入有以下几点：</p>
+<p>​    1）syslog：监听514端口上的系统日志信息</p>
+<p>​    2）udp：监听指定的udp端口</p>
+<p>​    3）file: 从文件系统的文件中读取日志信息，类似tail -f命令</p>
+<p>​    4）redis：从redis service中读取</p>
+<p>​    5）beats：从filebeat中读取</p>
+<h4 id="1-2-filters-日志过滤"><a href="#1-2-filters-日志过滤" class="headerlink" title="1.2 filters 日志过滤"></a>1.2 filters 日志过滤</h4><p>​    常用的过滤器有以下几个：</p>
+<p>​    1）grok：logstash中最重要的插件，其<strong>能解析任意的文本数据，并转化为具有格式化的数据</strong>。可以配合正则表达式使用</p>
+<p>​    2）mutate：对字段进行处理。如对字段进行删除、修改、重命名、替换等操作</p>
+<p>​    3）geoip：添加地理位置信息，用户kibana图形化显示使用</p>
+<p>​    4）drop：丢弃部分数据</p>
+<p>​    5）clone：拷贝数据，这个过程可以添加或删除字段</p>
+<h4 id="1-3-outputs-输出"><a href="#1-3-outputs-输出" class="headerlink" title="1.3 outputs 输出"></a>1.3 outputs 输出</h4><p>​    常用的输出 有以下几个：</p>
+<p>​    1）elasticsearch：用es服务进行数据的存储</p>
+<p>​    2）file：将输出数据保存到文本中</p>
+<p>​    3）graphite：将数据发送到图形化组件中</p>
+<p>​    4）json：使用json格式数据进行编码    / 解码</p>
+<p>​    5）multiline：将多个事件的数据汇总为一个单行数据</p>
+<h3 id="2-logstash在数据分析中的位置"><a href="#2-logstash在数据分析中的位置" class="headerlink" title="2. logstash在数据分析中的位置"></a>2. logstash在数据分析中的位置</h3><p>​    logstash在整个结构中起到数据采集，格式化，数据过滤等处理，最终数据推到ES做存储。其logstash在整个架构中的图解如下：</p>
+<p><img src="/medias/art_img/logstash%E7%BB%93%E6%9E%84%E5%9B%BE2.png"></p>
 
                 
             </div>
