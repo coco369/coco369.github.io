@@ -470,7 +470,7 @@
 <p>syslog.py和dup.py文件，主要用于测试，实现推送日志信息</p>
 <h4 id="2-2-logstash-yml配置"><a href="#2-2-logstash-yml配置" class="headerlink" title="2.2 logstash.yml配置"></a>2.2 logstash.yml配置</h4><p>​        在logstash.yml文件中设置如何运行logstash，当然也可以在启动logstash的时候在命令行中指定，所有在命令行中指定的参数会覆盖此文件中的配置。</p>
 <p>如下是我在logstash.yml中定义的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http.host: &quot;0.0.0.0&quot;</span><br><span class="line">path.logs: /var/log/logstash</span><br><span class="line">config.reload.automatic: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http.host: <span class="string">&quot;0.0.0.0&quot;</span></span><br><span class="line">path.logs: /var/log/logstash</span><br><span class="line">config.reload.automatic: true</span><br></pre></td></tr></table></figure>
 
 <p>参数解释：</p>
 <p>​    config.reload.automatic: true  表示：自动检测配置文件变动并自动重载。</p>
