@@ -647,7 +647,14 @@
 <td></td>
 </tr>
 </tbody></table>
-<h4 id="2-2-管道配置"><a href="#2-2-管道配置" class="headerlink" title="2.2 管道配置"></a>2.2 管道配置</h4><p>​    pipeline为</p>
+<h4 id="2-2-管道配置"><a href="#2-2-管道配置" class="headerlink" title="2.2 管道配置"></a>2.2 管道配置</h4><p>​    in.conf为定义接收日志的规则文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">    syslog &#123; </span><br><span class="line">        port =&gt; 514</span><br><span class="line">        grok_pattern =&gt; &quot;&lt;%&#123;POSINT:priority&#125;&gt;%&#123;GREEDYDATA:message&#125;&quot;</span><br><span class="line">        tags =&gt; &quot;linux&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：通过514端口接收系统日志。其中使用grok组件来解析传入的数据，并转化具有结构化的数据。grok的详细用法方法，请看logstash-grok组件的使用规则</p>
+<p>​    out.conf为定义输出日志的规则文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">  stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明：rubydebug其实就是codec的一种编码格式，方便我们测试和调试，美化output输出，也可以理解成对输出进行格式化。</p>
 <h3 id="3-logstash-启动"><a href="#3-logstash-启动" class="headerlink" title="3. logstash 启动"></a>3. logstash 启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -u root -p 514:514/udp -v 	/media/psf/Home/study_workspace/logstatsh_study/config/logstash.yml:/usr/share/logstash/config/logstash.yml -v /media/psf/Home/study_workspace/logstatsh_study/pipeline/:/usr/share/logstash/pipeline/ --name=logstash  logstash:7.8.1</span><br></pre></td></tr></table></figure>
 
 
