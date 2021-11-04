@@ -454,8 +454,8 @@
                 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​        从上一章的内容中可以了解到logstash的工作原理 以及 logstash在大数据分析平台中所处的位置。logstash作为数据采集、数据分析等任务的处理核心组件，首先我们需要将其运行起来，并调试日志信息的接收和打印。</p>
 <p><strong>注意</strong>：默认当前环境已经安装好docker环境了～</p>
 <h3 id="1-logstash镜像拉取"><a href="#1-logstash镜像拉取" class="headerlink" title="1. logstash镜像拉取"></a>1. logstash镜像拉取</h3><p>拉取指定7.8.1版本的logstash镜像</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull logstash:<span class="number">7.8</span>.<span class="number">1</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>docker pull logstash:7.8.1
+</code></pre>
 <h3 id="2-输入与输出的简单配置"><a href="#2-输入与输出的简单配置" class="headerlink" title="2. 输入与输出的简单配置"></a>2. 输入与输出的简单配置</h3><h4 id="2-1-代码路径"><a href="#2-1-代码路径" class="headerlink" title="2.1 代码路径"></a>2.1 代码路径</h4><p>|– logstash_test</p>
 <p>​        | – config</p>
 <p>​            | – logstash.yml</p>
