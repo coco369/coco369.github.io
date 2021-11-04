@@ -454,8 +454,8 @@
                 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​        从上一章的内容中可以了解到logstash的工作原理 以及 logstash在大数据分析平台中所处的位置。logstash作为数据采集、数据分析等任务的处理核心组件，首先我们需要将其运行起来，并调试日志信息的接收和打印。</p>
 <p><strong>注意</strong>：默认当前环境已经安装好docker环境了～</p>
 <h3 id="1-logstash镜像拉取"><a href="#1-logstash镜像拉取" class="headerlink" title="1. logstash镜像拉取"></a>1. logstash镜像拉取</h3><p>拉取指定7.8.1版本的logstash镜像</p>
-<pre><code>docker pull logstash:7.8.1
-</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull logstash:7.8.1</span><br></pre></td></tr></table></figure>
+
 <h3 id="2-输入与输出的简单配置"><a href="#2-输入与输出的简单配置" class="headerlink" title="2. 输入与输出的简单配置"></a>2. 输入与输出的简单配置</h3><h4 id="2-1-代码路径"><a href="#2-1-代码路径" class="headerlink" title="2.1 代码路径"></a>2.1 代码路径</h4><p>|– logstash_test</p>
 <p>​        | – config</p>
 <p>​            | – logstash.yml</p>
@@ -470,10 +470,8 @@
 <p>syslog.py和dup.py文件，主要用于测试，实现推送日志信息</p>
 <h4 id="2-2-logstash-yml配置"><a href="#2-2-logstash-yml配置" class="headerlink" title="2.2 logstash.yml配置"></a>2.2 logstash.yml配置</h4><p>​        在logstash.yml文件中设置如何运行logstash，当然也可以在启动logstash的时候在命令行中指定，所有在命令行中指定的参数会覆盖此文件中的配置。</p>
 <p>如下是我在logstash.yml中定义的内容：</p>
-<pre><code>http.host: &quot;0.0.0.0&quot;
-path.logs: /var/log/logstash
-config.reload.automatic: true
-</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http.host: &quot;0.0.0.0&quot;</span><br><span class="line">path.logs: /var/log/logstash</span><br><span class="line">config.reload.automatic: true</span><br></pre></td></tr></table></figure>
+
 <p>参数解释：</p>
 <p>​    config.reload.automatic: true  表示：自动检测配置文件变动并自动重载。</p>
 <p>​    path.logs 表示：设置日志存储的位置</p>
@@ -649,12 +647,13 @@ config.reload.automatic: true
 <td></td>
 </tr>
 </tbody></table>
-<h4 id="2-2-管道配置"><a href="#2-2-管道配置" class="headerlink" title="2.2 管道配置"></a>2.2 管道配置</h4><h3 id="3-logstash-启动"><a href="#3-logstash-启动" class="headerlink" title="3. logstash 启动"></a>3. logstash 启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -u root -p 514:514/udp -v 	/media/psf/Home/study_workspace/logstatsh_study/config/logstash.yml:/usr/share/logstash/config/logstash.yml -v /media/psf/Home/study_workspace/logstatsh_study/pipeline/:/usr/share/logstash/pipeline/ --name=logstash  logstash:7.8.1</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-管道配置"><a href="#2-2-管道配置" class="headerlink" title="2.2 管道配置"></a>2.2 管道配置</h4><p>​    pipeline为</p>
+<h3 id="3-logstash-启动"><a href="#3-logstash-启动" class="headerlink" title="3. logstash 启动"></a>3. logstash 启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -u root -p 514:514/udp -v 	/media/psf/Home/study_workspace/logstatsh_study/config/logstash.yml:/usr/share/logstash/config/logstash.yml -v /media/psf/Home/study_workspace/logstatsh_study/pipeline/:/usr/share/logstash/pipeline/ --name=logstash  logstash:7.8.1</span><br></pre></td></tr></table></figure>
 
 
 
 
-<p><img src="/medias/str_img/logstash%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B01.png"></p>
+<p><img src="/medias/atr_img/logstash%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B01.png"></p>
 
                 
             </div>
