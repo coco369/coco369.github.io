@@ -649,9 +649,12 @@ config.reload.automatic: true
 <td></td>
 </tr>
 </tbody></table>
-<h4 id="2-2-管道配置"><a href="#2-2-管道配置" class="headerlink" title="2.2 管道配置"></a>2.2 管道配置</h4><h3 id="3-logstash-启动"><a href="#3-logstash-启动" class="headerlink" title="3. logstash 启动"></a>3. logstash 启动</h3><pre><code>docker run -itd -u root -p 514:514/udp -v     /media/psf/Home/study_workspace/logstatsh_study/config/logstash.yml:/usr/share/logstash/config/logstash.yml -v /media/psf/Home/study_workspace/logstatsh_study/pipeline/:/usr/share/logstash/pipeline/ --name=logstash  logstash:7.8.1
-</code></pre>
-<p><img src="/medias/str_img/logstash%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B0.png"></p>
+<h4 id="2-2-管道配置"><a href="#2-2-管道配置" class="headerlink" title="2.2 管道配置"></a>2.2 管道配置</h4><h3 id="3-logstash-启动"><a href="#3-logstash-启动" class="headerlink" title="3. logstash 启动"></a>3. logstash 启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -u root -p 514:514/udp -v 	/media/psf/Home/study_workspace/logstatsh_study/config/logstash.yml:/usr/share/logstash/config/logstash.yml -v /media/psf/Home/study_workspace/logstatsh_study/pipeline/:/usr/share/logstash/pipeline/ --name=logstash  logstash:7.8.1</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="/medias/str_img/logstash%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B01.png"></p>
 
                 
             </div>
