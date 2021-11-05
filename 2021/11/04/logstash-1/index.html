@@ -661,9 +661,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --zone=internal --add-port=514/udp #syslog port</span><br></pre></td></tr></table></figure>
 
 <h4 id="3-2-Docker容器启动"><a href="#3-2-Docker容器启动" class="headerlink" title="3.2 Docker容器启动"></a>3.2 Docker容器启动</h4><p>docker容器启动的时候，需要注意以下几点：</p>
-<pre><code> 1. 需要映射logstash.yml文件路径，即本地的logstash.yml必须与容器的/usr/share/logstash/config/logstash.yml形成映射关系。
- 2. 需要映射管道pipeline文件夹，即本地pipeline文件夹必须与容器的/usr/share/logstash/pipeline文件夹形成映射关系。
-</code></pre>
+<p>1）需要映射logstash.yml文件路径，即本地的logstash.yml必须与容器的/usr/share/logstash/config/logstash.yml形成映射关系。</p>
+<p>2）需要映射管道pipeline文件夹，即本地pipeline文件夹必须与容器的/usr/share/logstash/pipeline文件夹形成映射关系。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -u root -p 514:514/udp -v 	/media/psf/Home/study_workspace/logstatsh_study/config/logstash.yml:/usr/share/logstash/config/logstash.yml -v /media/psf/Home/study_workspace/logstatsh_study/pipeline/:/usr/share/logstash/pipeline/ --name=logstash  logstash:7.8.1</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-调试"><a href="#4-调试" class="headerlink" title="4. 调试"></a>4. 调试</h3><p>模拟向系统日志syslog 514端口发送日志消息，并在name为logstash的容器中查看接收并输出的日志信息。</p>
