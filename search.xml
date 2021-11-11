@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>minemeld</title>
+      <title>minemeld系列～1.minemeld基础概念</title>
       <link href="/2021/11/10/minemeld/"/>
       <url>/2021/11/10/minemeld/</url>
       
-        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="MineMeld介绍"><a href="#MineMeld介绍" class="headerlink" title="MineMeld介绍"></a>MineMeld介绍</h3>]]></content>
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="MineMeld介绍"><a href="#MineMeld介绍" class="headerlink" title="MineMeld介绍"></a>MineMeld介绍</h3><p>​    MineMeld是一个开源的威胁情报系统，其实现了收集和共享来自各种来源的威胁情报数据。MineMeld具有高度自动化的收集和聚合威胁指标功能，以及易于使用的Web界面和出色的可视化界面。</p><p>​    MineMeld是开源的，以下讲解MineMeld框架的内容</p><h3 id="1-MineMeld组件"><a href="#1-MineMeld组件" class="headerlink" title="1. MineMeld组件"></a>1. MineMeld组件</h3>]]></content>
       
       
       
