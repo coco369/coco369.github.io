@@ -485,6 +485,9 @@
 <p>A服务器中导出镜像文件后，拷贝redis.tar.gz到B服务器，并执行倒入镜像操作</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker load --input redis.tar.gz</span><br></pre></td></tr></tbody></table></figure>
 
+<p>B服务器中运行redis容器</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart=always --network host -d --name redis -v /usr/local/etc/redis/redis.conf:/usr/local/etc/redis/redis.conf -v /var/lib/redis:/var/lib/redis -v /var/run/redis:/var/run/redis redis redis-server /usr/local/etc/redis/redis.conf</span><br></pre></td></tr></tbody></table></figure>
+
 <h3 id="3-安装MineMeld"><a href="#3-安装MineMeld" class="headerlink" title="3. 安装MineMeld"></a>3. 安装MineMeld</h3><p>在 B服务器中 创建一个新目录，用于存储 Minemeld 内容和 docker-compose.yml 文件。</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir /minemeld</span><br><span class="line">$ cd /minemeld</span><br><span class="line">$ sudo vim docker-compose.yml</span><br></pre></td></tr></tbody></table></figure>
 
