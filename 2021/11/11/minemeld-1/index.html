@@ -476,6 +476,7 @@
 <p>确保格式到位，因此没有不必要的空格，否则将无法解析文件。</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">version: '3.7'</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">  redis:</span><br><span class="line">    container_name: redis</span><br><span class="line">    image: redis</span><br><span class="line">    volumes:</span><br><span class="line">    - "/xxxxx/var/run/redis:/var/run/redis"</span><br><span class="line">    - "/xxxxx/var/lib/redis:/var/lib/redis"</span><br><span class="line">    - "/xxxxx/usr/local/etc/redis:/usr/local/etc/redis"</span><br><span class="line">    command: --appendonly yes</span><br><span class="line">    ports:</span><br><span class="line">    - "6379:6379"</span><br></pre></td></tr></tbody></table></figure>
 
+<p>注意： 共享本地/xxxxx/usr/local/etc/redis路径，主要是要将该路径下的redis.conf文件映射到镜像的/usr/local/etc/redis/redis.conf。redis.conf为根据启动MimeMeld需求修改的相关启动配置，该文件存放在网盘，网盘链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ci1jGk03Ery0-ycfhii26A">https://pan.baidu.com/s/1ci1jGk03Ery0-ycfhii26A</a>  提取码的获取请联系我</p>
 <p>要启动容器：</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose up -d</span><br></pre></td></tr></tbody></table></figure>
 
@@ -488,7 +489,7 @@
 <p>B服务器中运行redis容器</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart=always --network host -d --name redis -v /usr/local/etc/redis/redis.conf:/usr/local/etc/redis/redis.conf -v /var/lib/redis:/var/lib/redis -v /var/run/redis:/var/run/redis redis redis-server /usr/local/etc/redis/redis.conf</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="s3-安装MineMeld"><a href="#s3-安装MineMeld" class="headerlink" title="ß3. 安装MineMeld"></a>ß3. 安装MineMeld</h3><p>在 B服务器中 创建一个新目录，用于存储 Minemeld 内容和 docker-compose.yml 文件。</p>
+<h3 id="3-安装MineMeld"><a href="#3-安装MineMeld" class="headerlink" title="3. 安装MineMeld"></a>3. 安装MineMeld</h3><p>在 B服务器中 创建一个新目录，用于存储 Minemeld 内容和 docker-compose.yml 文件。</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir /minemeld</span><br><span class="line">$ cd /minemeld</span><br><span class="line">$ sudo vim docker-compose.yml</span><br></pre></td></tr></tbody></table></figure>
 
 <p>确保格式到位，因此没有不必要的空格，否则将无法解析文件。</p>
