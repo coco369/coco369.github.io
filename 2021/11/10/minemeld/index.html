@@ -469,6 +469,28 @@
 </ul>
 <p>MineMeld的三大组件miner、processor、output的图解如下所示：</p>
 <p><img src="/medias/art_img/minemeld%E7%BB%93%E6%9E%84%E5%9B%BE1.png"></p>
+<p>默认情况下，MineMeld有4个miners、1个processor、3个output</p>
+<h4 id="2-1-miners"><a href="#2-1-miners" class="headerlink" title="2.1 miners"></a>2.1 miners</h4><p>可参考对应的代码模块：minemeld.ft.http.HttpFT</p>
+<ul>
+<li><p>dshield_blocklist ：参考地址 <a target="_blank" rel="noopener" href="https://www.dshield.org/">https://www.dshield.org/</a></p>
+</li>
+<li><p>Spamhaus_DROP：参考地址 <a target="_blank" rel="noopener" href="https://www.spamhaus.org/">https://www.spamhaus.org/</a>, 保护用户信息安全，在威胁情报领域中起到领导性作用。用于安全过滤器DNSBL（阻止列表）, 以过滤垃圾邮箱为例，参考文档地址为：<a target="_blank" rel="noopener" href="https://www.spamhaus.org/whitepapers/dnsbl_function/">https://www.spamhaus.org/whitepapers/dnsbl_function/</a></p>
+</li>
+<li><p>Spamhaus_EDROP：参考地址 <a target="_blank" rel="noopener" href="https://www.spamhaus.org/%EF%BC%8C%E5%90%8C%E4%B8%8A">https://www.spamhaus.org/，同上</a></p>
+</li>
+<li><p>wlWhiteListIPv4：白名单列表</p>
+</li>
+</ul>
+<h4 id="2-2-processor"><a href="#2-2-processor" class="headerlink" title="2.2 processor"></a>2.2 processor</h4><p>可参考对应的代码模块：minemeld.ft.ipop.AggregateIPv4FT</p>
+<ul>
+<li>inboundaggregator：聚合处理器</li>
+</ul>
+<h4 id="2-3-output"><a href="#2-3-output" class="headerlink" title="2.3 output"></a>2.3 output</h4><p>将聚合处理器处理的结果输出到redis，可参考对应的代码模块：minemeld.ft.redis.RedisSet</p>
+<ul>
+<li>inboundfeedhc</li>
+<li>inboundfeedlc</li>
+<li>inboundfeedmc</li>
+</ul>
 
                 
             </div>
