@@ -491,11 +491,14 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>minemeld是基于python2.7.15版本</p>
-<p>应用youtube-miner</p>
-<p>pip install wheel</p>
-<p>python setup.py sdist bidet_wheel</p>
-<p>然后再页面中安装wheel文件</p>
+                <h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>​    通过上一篇文章已经能用docker进行容器化部署MineMeld服务了，本章中将安装应用youtube-miner和github-miner，以及自定义miner。</p>
+<p>1）youtube-miner 地址： <a target="_blank" rel="noopener" href="https://github.com/PaloAltoNetworks/youtube-miner">https://github.com/PaloAltoNetworks/youtube-miner</a></p>
+<p>2）github-miner 地址：<a target="_blank" rel="noopener" href="https://github.com/lampwins/github-miner">https://github.com/lampwins/github-miner</a></p>
+<h3 id="1-安装miner"><a href="#1-安装miner" class="headerlink" title="1. 安装miner"></a>1. 安装miner</h3><p>​    miner的安装方式分为2种，分别为源码安装、以及 wheel包安装</p>
+<h5 id="1）以下展示源码安装，即youtube-miner的安装方式，即"><a href="#1）以下展示源码安装，即youtube-miner的安装方式，即" class="headerlink" title="1）以下展示源码安装，即youtube-miner的安装方式，即"></a>1）以下展示源码安装，即youtube-miner的安装方式，即<img src="https://paloaltonetworks.github.io/youtube-miner/mm-git-extension.gif?_=2" alt="Installation" title="Installation"></h5><h5 id="2）以下采用wheel包安装"><a href="#2）以下采用wheel包安装" class="headerlink" title="2）以下采用wheel包安装"></a>2）以下采用wheel包安装</h5><p>先将源码pull拉取下来，然后通过打包命令，生成对应的wheel包</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install wheel</span><br><span class="line"></span><br><span class="line">python setup.py sdist bidet_wheel</span><br></pre></td></tr></tbody></table></figure>
+<p>然后再到MineMeld的 ‘SYSTEM’ –&gt; ‘EXTENSIONS’  界面中选择上传安装wheel文件。</p>
+<p>以上安装方式都可行</p>
 
                 
             </div>
