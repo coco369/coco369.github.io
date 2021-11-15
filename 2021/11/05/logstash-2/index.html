@@ -287,6 +287,19 @@
 </header>
 
     
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -420,6 +433,15 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                大数据
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
@@ -431,6 +453,11 @@
                 </div>
                 
 
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
+                    2021-11-15
+                </div>
                 
 
                 
@@ -450,6 +477,11 @@
         
 
         
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
 
         <div class="card-content article-card-content">
             <div id="articleContent">
@@ -458,7 +490,7 @@
 <p>1）官网中关于Grok的描述： <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/kibana/7.9/xpack-grokdebugger.html">https://www.elastic.co/guide/en/kibana/7.9/xpack-grokdebugger.html</a></p>
 <p>2）Grok预定义120个字段，参考：<a target="_blank" rel="noopener" href="https://github.com/logstash-plugins/logstash-patterns-core/tree/master/patterns">https://github.com/logstash-plugins/logstash-patterns-core/tree/master/patterns</a></p>
 <h3 id="1-使用案例"><a href="#1-使用案例" class="headerlink" title="1. 使用案例"></a>1. 使用案例</h3><h4 id="1-1-语法说明"><a href="#1-1-语法说明" class="headerlink" title="1.1 语法说明"></a>1.1 语法说明</h4><p>比如有如下的字符串，需要通过Grok匹配出来：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost GET /index.html 1024 0.016</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost GET /index.html 1024 0.016</span><br></pre></td></tr></tbody></table></figure>
 
 <p>Grok匹配规则解释：</p>
 <p>​    1）localhost 匹配的预定义字段是：IPORHOST</p>
@@ -468,12 +500,12 @@
 <p>​    5）0.016 匹配的预定义字段是：NUMBER</p>
 <p>所以Grok语法就是: %{IPORHOST:client} %{WORD:method} %{URIPATHPARAM:request} %{INT:size} %{NUMBER:duration}</p>
 <h4 id="1-2-logstash-filter说明"><a href="#1-2-logstash-filter说明" class="headerlink" title="1.2 logstash filter说明"></a>1.2 logstash filter说明</h4><p>基于1.1的讲解，可写出如下的filter日志过滤语句：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">filter &#123;</span><br><span class="line">  grok &#123;</span><br><span class="line">    match =&gt; &#123; &quot;message&quot; =&gt; &quot;%&#123;IPORHOST:client&#125; %&#123;WORD:method&#125; %&#123;URIPATHPARAM:request&#125; %&#123;INT:size&#125; %&#123;NUMBER:duration&#125;&quot; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">filter {</span><br><span class="line">  grok {</span><br><span class="line">    match =&gt; { "message" =&gt; "%{IPORHOST:client} %{WORD:method} %{URIPATHPARAM:request} %{INT:size} %{NUMBER:duration}" }</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 
 
 <h3 id="2-预定义字段说明"><a href="#2-预定义字段说明" class="headerlink" title="2. 预定义字段说明"></a>2. 预定义字段说明</h3><p>​    Grok的预定义字段，其实就是某个字段 用于 表示某个正则表达式。1.1章节只使用到的预定义字段可以从以下的关系中找到对应的正则表达式。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">USERNAME [a-zA-Z0-9._-]+</span><br><span class="line">USER %&#123;USERNAME&#125;</span><br><span class="line">INT (?:[+-]?(?:[0-9]+))</span><br><span class="line">BASE10NUM (?&lt;![0-9.+-])(?&gt;[+-]?(?:(?:[0-9]+(?:\.[0-9]+)?)|(?:\.[0-9]+)))</span><br><span class="line">NUMBER (?:%&#123;BASE10NUM&#125;)</span><br><span class="line">BASE16NUM (?&lt;![0-9A-Fa-f])(?:[+-]?(?:0x)?(?:[0-9A-Fa-f]+))</span><br><span class="line">BASE16FLOAT \b(?&lt;![0-9A-Fa-f.])(?:[+-]?(?:0x)?(?:(?:[0-9A-Fa-f]+(?:\.[0-9A-Fa-f]*)?)|(?:\.[0-9A-Fa-f]+)))\b</span><br><span class="line"> </span><br><span class="line">POSINT \b(?:[1-9][0-9]*)\b</span><br><span class="line">NONNEGINT \b(?:[0-9]+)\b</span><br><span class="line">WORD \b\w+\b</span><br><span class="line">NOTSPACE \S+</span><br><span class="line">SPACE \s*</span><br><span class="line">DATA .*?</span><br><span class="line">GREEDYDATA .*</span><br><span class="line">QUOTEDSTRING (?&gt;(?&lt;!\\)(?&gt;&quot;(?&gt;\\.|[^\\&quot;]+)+&quot;|&quot;&quot;|(?&gt;&#x27;(?&gt;\\.|[^\\&#x27;]+)+&#x27;)|&#x27;&#x27;|(?&gt;`(?&gt;\\.|[^\\`]+)+`)|``))</span><br><span class="line">UUID [A-Fa-f0-9]&#123;8&#125;-(?:[A-Fa-f0-9]&#123;4&#125;-)&#123;3&#125;[A-Fa-f0-9]&#123;12&#125;</span><br><span class="line"># Networking</span><br><span class="line">MAC (?:%&#123;CISCOMAC&#125;|%&#123;WINDOWSMAC&#125;|%&#123;COMMONMAC&#125;)</span><br><span class="line">CISCOMAC (?:(?:[A-Fa-f0-9]&#123;4&#125;\.)&#123;2&#125;[A-Fa-f0-9]&#123;4&#125;)</span><br><span class="line">WINDOWSMAC (?:(?:[A-Fa-f0-9]&#123;2&#125;-)&#123;5&#125;[A-Fa-f0-9]&#123;2&#125;)</span><br><span class="line">COMMONMAC (?:(?:[A-Fa-f0-9]&#123;2&#125;:)&#123;5&#125;[A-Fa-f0-9]&#123;2&#125;)</span><br><span class="line">IPV6 ((([0-9A-Fa-f]&#123;1,4&#125;:)&#123;7&#125;([0-9A-Fa-f]&#123;1,4&#125;|:))|(([0-9A-Fa-f]&#123;1,4&#125;:)&#123;6&#125;(:[0-9A-Fa-f]&#123;1,4&#125;|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d))&#123;3&#125;)|:))|(([0-9A-Fa-f]&#123;1,4&#125;:)&#123;5&#125;(((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;1,2&#125;)|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d))&#123;3&#125;)|:))|(([0-9A-Fa-f]&#123;1,4&#125;:)&#123;4&#125;(((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;1,3&#125;)|((:[0-9A-Fa-f]&#123;1,4&#125;)?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d))&#123;3&#125;))|:))|(([0-9A-Fa-f]&#123;1,4&#125;:)&#123;3&#125;(((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;1,4&#125;)|((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;0,2&#125;:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d))&#123;3&#125;))|:))|(([0-9A-Fa-f]&#123;1,4&#125;:)&#123;2&#125;(((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;1,5&#125;)|((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;0,3&#125;:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d))&#123;3&#125;))|:))|(([0-9A-Fa-f]&#123;1,4&#125;:)&#123;1&#125;(((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;1,6&#125;)|((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;0,4&#125;:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d))&#123;3&#125;))|:))|(:(((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;1,7&#125;)|((:[0-9A-Fa-f]&#123;1,4&#125;)&#123;0,5&#125;:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d))&#123;3&#125;))|:)))(%.+)?</span><br><span class="line">IPV4 (?&lt;![0-9])(?:(?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]&#123;1,2&#125;)[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]&#123;1,2&#125;)[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]&#123;1,2&#125;)[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]&#123;1,2&#125;))(?![0-9])</span><br><span class="line">IP (?:%&#123;IPV6&#125;|%&#123;IPV4&#125;)</span><br><span class="line">HOSTNAME \b(?:[0-9A-Za-z][0-9A-Za-z-]&#123;0,62&#125;)(?:\.(?:[0-9A-Za-z][0-9A-Za-z-]&#123;0,62&#125;))*(\.?|\b)</span><br><span class="line">HOST %&#123;HOSTNAME&#125;</span><br><span class="line">IPORHOST (?:%&#123;HOSTNAME&#125;|%&#123;IP&#125;)</span><br><span class="line">HOSTPORT %&#123;IPORHOST&#125;:%&#123;POSINT&#125;</span><br><span class="line"># paths</span><br><span class="line">PATH (?:%&#123;UNIXPATH&#125;|%&#123;WINPATH&#125;)</span><br><span class="line">UNIXPATH (?&gt;/(?&gt;[\w_%!$@:.,-]+|\\.)*)+</span><br><span class="line">TTY (?:/dev/(pts|tty([pq])?)(\w+)?/?(?:[0-9]+))</span><br><span class="line">WINPATH (?&gt;[A-Za-z]+:|\\)(?:\\[^\\?*]*)+</span><br><span class="line">URIPROTO [A-Za-z]+(\+[A-Za-z+]+)?</span><br><span class="line">URIHOST %&#123;IPORHOST&#125;(?::%&#123;POSINT:port&#125;)?</span><br><span class="line"># uripath comes loosely from RFC1738, but mostly from what Firefox</span><br><span class="line"># doesn&#x27;t turn into %XX</span><br><span class="line">URIPATH (?:/[A-Za-z0-9$.+!*&#x27;()&#123;&#125;,~:;=@#%_\-]*)+</span><br><span class="line">#URIPARAM \?(?:[A-Za-z0-9]+(?:=(?:[^&amp;]*))?(?:&amp;(?:[A-Za-z0-9]+(?:=(?:[^&amp;]*))?)?)*)?</span><br><span class="line">URIPARAM \?[A-Za-z0-9$.+!*&#x27;|()&#123;&#125;,~@#%&amp;/=:;_?\-\[\]]*</span><br><span class="line">URIPATHPARAM %&#123;URIPATH&#125;(?:%&#123;URIPARAM&#125;)?</span><br><span class="line">URI %&#123;URIPROTO&#125;://(?:%&#123;USER&#125;(?::[^@]*)?@)?(?:%&#123;URIHOST&#125;)?(?:%&#123;URIPATHPARAM&#125;)?</span><br><span class="line"># Months: January, Feb, 3, 03, 12, December</span><br><span class="line">MONTH \b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\b</span><br><span class="line">MONTHNUM (?:0?[1-9]|1[0-2])</span><br><span class="line">MONTHNUM2 (?:0[1-9]|1[0-2])</span><br><span class="line">MONTHDAY (?:(?:0[1-9])|(?:[12][0-9])|(?:3[01])|[1-9])</span><br><span class="line"># Days: Monday, Tue, Thu, etc...</span><br><span class="line">DAY (?:Mon(?:day)?|Tue(?:sday)?|Wed(?:nesday)?|Thu(?:rsday)?|Fri(?:day)?|Sat(?:urday)?|Sun(?:day)?)</span><br><span class="line"># Years?</span><br><span class="line">YEAR (?&gt;\d\d)&#123;1,2&#125;</span><br><span class="line">HOUR (?:2[0123]|[01]?[0-9])</span><br><span class="line">MINUTE (?:[0-5][0-9])</span><br><span class="line"># &#x27;60&#x27; is a leap second in most time standards and thus is valid.</span><br><span class="line">SECOND (?:(?:[0-5]?[0-9]|60)(?:[:.,][0-9]+)?)</span><br><span class="line">TIME (?!&lt;[0-9])%&#123;HOUR&#125;:%&#123;MINUTE&#125;(?::%&#123;SECOND&#125;)(?![0-9])</span><br><span class="line"># datestamp is YYYY/MM/DD-HH:MM:SS.UUUU (or something like it)</span><br><span class="line">DATE_US %&#123;MONTHNUM&#125;[/-]%&#123;MONTHDAY&#125;[/-]%&#123;YEAR&#125;</span><br><span class="line">DATE_EU %&#123;MONTHDAY&#125;[./-]%&#123;MONTHNUM&#125;[./-]%&#123;YEAR&#125;</span><br><span class="line">ISO8601_TIMEZONE (?:Z|[+-]%&#123;HOUR&#125;(?::?%&#123;MINUTE&#125;))</span><br><span class="line">ISO8601_SECOND (?:%&#123;SECOND&#125;|60)</span><br><span class="line">TIMESTAMP_ISO8601 %&#123;YEAR&#125;-%&#123;MONTHNUM&#125;-%&#123;MONTHDAY&#125;[T ]%&#123;HOUR&#125;:?%&#123;MINUTE&#125;(?::?%&#123;SECOND&#125;)?%&#123;ISO8601_TIMEZONE&#125;?</span><br><span class="line">DATE %&#123;DATE_US&#125;|%&#123;DATE_EU&#125;</span><br><span class="line">DATESTAMP %&#123;DATE&#125;[- ]%&#123;TIME&#125;</span><br><span class="line">TZ (?:[PMCE][SD]T|UTC)</span><br><span class="line">DATESTAMP_RFC822 %&#123;DAY&#125; %&#123;MONTH&#125; %&#123;MONTHDAY&#125; %&#123;YEAR&#125; %&#123;TIME&#125; %&#123;TZ&#125;</span><br><span class="line">DATESTAMP_RFC2822 %&#123;DAY&#125;, %&#123;MONTHDAY&#125; %&#123;MONTH&#125; %&#123;YEAR&#125; %&#123;TIME&#125; %&#123;ISO8601_TIMEZONE&#125;</span><br><span class="line">DATESTAMP_OTHER %&#123;DAY&#125; %&#123;MONTH&#125; %&#123;MONTHDAY&#125; %&#123;TIME&#125; %&#123;TZ&#125; %&#123;YEAR&#125;</span><br><span class="line">DATESTAMP_EVENTLOG %&#123;YEAR&#125;%&#123;MONTHNUM2&#125;%&#123;MONTHDAY&#125;%&#123;HOUR&#125;%&#123;MINUTE&#125;%&#123;SECOND&#125;</span><br><span class="line"># Syslog Dates: Month Day HH:MM:SS</span><br><span class="line">SYSLOGTIMESTAMP %&#123;MONTH&#125; +%&#123;MONTHDAY&#125; %&#123;TIME&#125;</span><br><span class="line">PROG (?:[\w._/%-]+)</span><br><span class="line">SYSLOGPROG %&#123;PROG:program&#125;(?:\[%&#123;POSINT:pid&#125;\])?</span><br><span class="line">SYSLOGHOST %&#123;IPORHOST&#125;</span><br><span class="line">SYSLOGFACILITY &lt;%&#123;NONNEGINT:facility&#125;.%&#123;NONNEGINT:priority&#125;&gt;</span><br><span class="line">HTTPDATE %&#123;MONTHDAY&#125;/%&#123;MONTH&#125;/%&#123;YEAR&#125;:%&#123;TIME&#125; %&#123;INT&#125;</span><br><span class="line"># Shortcuts</span><br><span class="line">QS %&#123;QUOTEDSTRING&#125;</span><br><span class="line"># Log formats</span><br><span class="line">SYSLOGBASE %&#123;SYSLOGTIMESTAMP:timestamp&#125; (?:%&#123;SYSLOGFACILITY&#125; )?%&#123;SYSLOGHOST:logsource&#125; %&#123;SYSLOGPROG&#125;:</span><br><span class="line">COMMONAPACHELOG %&#123;IPORHOST:clientip&#125; %&#123;USER:ident&#125; %&#123;USER:auth&#125; \[%&#123;HTTPDATE:timestamp&#125;\] &quot;(?:%&#123;WORD:verb&#125; %&#123;NOTSPACE:request&#125;(?: HTTP/%&#123;NUMBER:httpversion&#125;)?|%&#123;DATA:rawrequest&#125;)&quot; %&#123;NUMBER:response&#125; (?:%&#123;NUMBER:bytes&#125;|-)</span><br><span class="line">COMBINEDAPACHELOG %&#123;COMMONAPACHELOG&#125; %&#123;QS:referrer&#125; %&#123;QS:agent&#125;</span><br><span class="line"># Log Levels</span><br><span class="line">LOGLEVEL ([Aa]lert|ALERT|[Tt]race|TRACE|[Dd]ebug|DEBUG|[Nn]otice|NOTICE|[Ii]nfo|INFO|[Ww]arn?(?:ing)?|WARN?(?:ING)?|[Ee]rr?(?:or)?|ERR?(?:OR)?|[Cc]rit?(?:ical)?|CRIT?(?:ICAL)?|[Ff]atal|FATAL|[Ss]evere|SEVERE|EMERG(?:ENCY)?|[Ee]merg(?:ency)?)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">USERNAME [a-zA-Z0-9._-]+</span><br><span class="line">USER %{USERNAME}</span><br><span class="line">INT (?:[+-]?(?:[0-9]+))</span><br><span class="line">BASE10NUM (?&lt;![0-9.+-])(?&gt;[+-]?(?:(?:[0-9]+(?:\.[0-9]+)?)|(?:\.[0-9]+)))</span><br><span class="line">NUMBER (?:%{BASE10NUM})</span><br><span class="line">BASE16NUM (?&lt;![0-9A-Fa-f])(?:[+-]?(?:0x)?(?:[0-9A-Fa-f]+))</span><br><span class="line">BASE16FLOAT \b(?&lt;![0-9A-Fa-f.])(?:[+-]?(?:0x)?(?:(?:[0-9A-Fa-f]+(?:\.[0-9A-Fa-f]*)?)|(?:\.[0-9A-Fa-f]+)))\b</span><br><span class="line"> </span><br><span class="line">POSINT \b(?:[1-9][0-9]*)\b</span><br><span class="line">NONNEGINT \b(?:[0-9]+)\b</span><br><span class="line">WORD \b\w+\b</span><br><span class="line">NOTSPACE \S+</span><br><span class="line">SPACE \s*</span><br><span class="line">DATA .*?</span><br><span class="line">GREEDYDATA .*</span><br><span class="line">QUOTEDSTRING (?&gt;(?&lt;!\\)(?&gt;"(?&gt;\\.|[^\\"]+)+"|""|(?&gt;'(?&gt;\\.|[^\\']+)+')|''|(?&gt;`(?&gt;\\.|[^\\`]+)+`)|``))</span><br><span class="line">UUID [A-Fa-f0-9]{8}-(?:[A-Fa-f0-9]{4}-){3}[A-Fa-f0-9]{12}</span><br><span class="line"># Networking</span><br><span class="line">MAC (?:%{CISCOMAC}|%{WINDOWSMAC}|%{COMMONMAC})</span><br><span class="line">CISCOMAC (?:(?:[A-Fa-f0-9]{4}\.){2}[A-Fa-f0-9]{4})</span><br><span class="line">WINDOWSMAC (?:(?:[A-Fa-f0-9]{2}-){5}[A-Fa-f0-9]{2})</span><br><span class="line">COMMONMAC (?:(?:[A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2})</span><br><span class="line">IPV6 ((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?</span><br><span class="line">IPV4 (?&lt;![0-9])(?:(?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2})[.](?:25[0-5]|2[0-4][0-9]|[0-1]?[0-9]{1,2}))(?![0-9])</span><br><span class="line">IP (?:%{IPV6}|%{IPV4})</span><br><span class="line">HOSTNAME \b(?:[0-9A-Za-z][0-9A-Za-z-]{0,62})(?:\.(?:[0-9A-Za-z][0-9A-Za-z-]{0,62}))*(\.?|\b)</span><br><span class="line">HOST %{HOSTNAME}</span><br><span class="line">IPORHOST (?:%{HOSTNAME}|%{IP})</span><br><span class="line">HOSTPORT %{IPORHOST}:%{POSINT}</span><br><span class="line"># paths</span><br><span class="line">PATH (?:%{UNIXPATH}|%{WINPATH})</span><br><span class="line">UNIXPATH (?&gt;/(?&gt;[\w_%!$@:.,-]+|\\.)*)+</span><br><span class="line">TTY (?:/dev/(pts|tty([pq])?)(\w+)?/?(?:[0-9]+))</span><br><span class="line">WINPATH (?&gt;[A-Za-z]+:|\\)(?:\\[^\\?*]*)+</span><br><span class="line">URIPROTO [A-Za-z]+(\+[A-Za-z+]+)?</span><br><span class="line">URIHOST %{IPORHOST}(?::%{POSINT:port})?</span><br><span class="line"># uripath comes loosely from RFC1738, but mostly from what Firefox</span><br><span class="line"># doesn't turn into %XX</span><br><span class="line">URIPATH (?:/[A-Za-z0-9$.+!*'(){},~:;=@#%_\-]*)+</span><br><span class="line">#URIPARAM \?(?:[A-Za-z0-9]+(?:=(?:[^&amp;]*))?(?:&amp;(?:[A-Za-z0-9]+(?:=(?:[^&amp;]*))?)?)*)?</span><br><span class="line">URIPARAM \?[A-Za-z0-9$.+!*'|(){},~@#%&amp;/=:;_?\-\[\]]*</span><br><span class="line">URIPATHPARAM %{URIPATH}(?:%{URIPARAM})?</span><br><span class="line">URI %{URIPROTO}://(?:%{USER}(?::[^@]*)?@)?(?:%{URIHOST})?(?:%{URIPATHPARAM})?</span><br><span class="line"># Months: January, Feb, 3, 03, 12, December</span><br><span class="line">MONTH \b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\b</span><br><span class="line">MONTHNUM (?:0?[1-9]|1[0-2])</span><br><span class="line">MONTHNUM2 (?:0[1-9]|1[0-2])</span><br><span class="line">MONTHDAY (?:(?:0[1-9])|(?:[12][0-9])|(?:3[01])|[1-9])</span><br><span class="line"># Days: Monday, Tue, Thu, etc...</span><br><span class="line">DAY (?:Mon(?:day)?|Tue(?:sday)?|Wed(?:nesday)?|Thu(?:rsday)?|Fri(?:day)?|Sat(?:urday)?|Sun(?:day)?)</span><br><span class="line"># Years?</span><br><span class="line">YEAR (?&gt;\d\d){1,2}</span><br><span class="line">HOUR (?:2[0123]|[01]?[0-9])</span><br><span class="line">MINUTE (?:[0-5][0-9])</span><br><span class="line"># '60' is a leap second in most time standards and thus is valid.</span><br><span class="line">SECOND (?:(?:[0-5]?[0-9]|60)(?:[:.,][0-9]+)?)</span><br><span class="line">TIME (?!&lt;[0-9])%{HOUR}:%{MINUTE}(?::%{SECOND})(?![0-9])</span><br><span class="line"># datestamp is YYYY/MM/DD-HH:MM:SS.UUUU (or something like it)</span><br><span class="line">DATE_US %{MONTHNUM}[/-]%{MONTHDAY}[/-]%{YEAR}</span><br><span class="line">DATE_EU %{MONTHDAY}[./-]%{MONTHNUM}[./-]%{YEAR}</span><br><span class="line">ISO8601_TIMEZONE (?:Z|[+-]%{HOUR}(?::?%{MINUTE}))</span><br><span class="line">ISO8601_SECOND (?:%{SECOND}|60)</span><br><span class="line">TIMESTAMP_ISO8601 %{YEAR}-%{MONTHNUM}-%{MONTHDAY}[T ]%{HOUR}:?%{MINUTE}(?::?%{SECOND})?%{ISO8601_TIMEZONE}?</span><br><span class="line">DATE %{DATE_US}|%{DATE_EU}</span><br><span class="line">DATESTAMP %{DATE}[- ]%{TIME}</span><br><span class="line">TZ (?:[PMCE][SD]T|UTC)</span><br><span class="line">DATESTAMP_RFC822 %{DAY} %{MONTH} %{MONTHDAY} %{YEAR} %{TIME} %{TZ}</span><br><span class="line">DATESTAMP_RFC2822 %{DAY}, %{MONTHDAY} %{MONTH} %{YEAR} %{TIME} %{ISO8601_TIMEZONE}</span><br><span class="line">DATESTAMP_OTHER %{DAY} %{MONTH} %{MONTHDAY} %{TIME} %{TZ} %{YEAR}</span><br><span class="line">DATESTAMP_EVENTLOG %{YEAR}%{MONTHNUM2}%{MONTHDAY}%{HOUR}%{MINUTE}%{SECOND}</span><br><span class="line"># Syslog Dates: Month Day HH:MM:SS</span><br><span class="line">SYSLOGTIMESTAMP %{MONTH} +%{MONTHDAY} %{TIME}</span><br><span class="line">PROG (?:[\w._/%-]+)</span><br><span class="line">SYSLOGPROG %{PROG:program}(?:\[%{POSINT:pid}\])?</span><br><span class="line">SYSLOGHOST %{IPORHOST}</span><br><span class="line">SYSLOGFACILITY &lt;%{NONNEGINT:facility}.%{NONNEGINT:priority}&gt;</span><br><span class="line">HTTPDATE %{MONTHDAY}/%{MONTH}/%{YEAR}:%{TIME} %{INT}</span><br><span class="line"># Shortcuts</span><br><span class="line">QS %{QUOTEDSTRING}</span><br><span class="line"># Log formats</span><br><span class="line">SYSLOGBASE %{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY} )?%{SYSLOGHOST:logsource} %{SYSLOGPROG}:</span><br><span class="line">COMMONAPACHELOG %{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE:timestamp}\] "(?:%{WORD:verb} %{NOTSPACE:request}(?: HTTP/%{NUMBER:httpversion})?|%{DATA:rawrequest})" %{NUMBER:response} (?:%{NUMBER:bytes}|-)</span><br><span class="line">COMBINEDAPACHELOG %{COMMONAPACHELOG} %{QS:referrer} %{QS:agent}</span><br><span class="line"># Log Levels</span><br><span class="line">LOGLEVEL ([Aa]lert|ALERT|[Tt]race|TRACE|[Dd]ebug|DEBUG|[Nn]otice|NOTICE|[Ii]nfo|INFO|[Ww]arn?(?:ing)?|WARN?(?:ING)?|[Ee]rr?(?:or)?|ERR?(?:OR)?|[Cc]rit?(?:ical)?|CRIT?(?:ICAL)?|[Ff]atal|FATAL|[Ss]evere|SEVERE|EMERG(?:ENCY)?|[Ee]merg(?:ency)?)</span><br></pre></td></tr></tbody></table></figure>
 
 
 
@@ -494,7 +526,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Wang Hai Fei</a>
+                    <a href="/about" rel="external nofollow noreferrer">王海飞</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -517,7 +549,7 @@
                     All articles in this blog are used except for special statements
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     reprint polocy. If reproduced, please indicate source
-                    <a href="/about" target="_blank">Wang Hai Fei</a>
+                    <a href="/about" target="_blank">王海飞</a>
                     !
                 </span>
             </div>
@@ -612,8 +644,12 @@
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Wang Hai Fei
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                    大数据
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -657,8 +693,12 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Wang Hai Fei
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                    大数据
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -681,13 +721,48 @@
 </div>
 
 
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + 'From: 技术博客<br />'
+            + 'Author: Wang Hai Fei<br />'
+            + 'Link: <a href="' + url + '">' + url + '</a><br />'
+            + '文章来源https://coco369.github.io/～～～～～～～～～～～～～～～本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
 
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->

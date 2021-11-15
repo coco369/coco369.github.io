@@ -287,6 +287,19 @@
 </header>
 
     
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -420,6 +433,15 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                大数据
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
@@ -431,6 +453,11 @@
                 </div>
                 
 
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
+                    2021-11-15
+                </div>
                 
 
                 
@@ -450,22 +477,27 @@
         
 
         
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
 
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​        从上一章的内容中可以了解到logstash的工作原理 以及 logstash在大数据分析平台中所处的位置。logstash作为数据采集、数据分析等任务的处理核心组件，首先我们需要将其运行起来，并调试日志信息的接收和打印。</p>
 <p><strong>注意</strong>：默认当前环境已经安装好docker环境了～</p>
 <h3 id="1-logstash镜像拉取"><a href="#1-logstash镜像拉取" class="headerlink" title="1. logstash镜像拉取"></a>1. logstash镜像拉取</h3><p>拉取指定7.8.1版本的logstash镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull logstash:7.8.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull logstash:7.8.1</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="2-输入与输出的简单配置"><a href="#2-输入与输出的简单配置" class="headerlink" title="2. 输入与输出的简单配置"></a>2. 输入与输出的简单配置</h3><h4 id="2-1-代码路径"><a href="#2-1-代码路径" class="headerlink" title="2.1 代码路径"></a>2.1 代码路径</h4><p>├── logstatsh_study<br>​    ├── config<br>​           └── logstash.yml<br>​    ├── pipeline<br>​           └── in.conf<br>​           └── out.conf<br>​    ├── syslog.py<br>​    ├── udp.py</p>
+<h3 id="2-输入与输出的简单配置"><a href="#2-输入与输出的简单配置" class="headerlink" title="2. 输入与输出的简单配置"></a>2. 输入与输出的简单配置</h3><h4 id="2-1-代码路径"><a href="#2-1-代码路径" class="headerlink" title="2.1 代码路径"></a>2.1 代码路径</h4><p>├── logstatsh_study<br>​    ├── config<br>​        &nbsp;&nbsp; └── logstash.yml<br>​    ├── pipeline<br>​        &nbsp;&nbsp; └── in.conf<br>​        &nbsp;&nbsp; └── out.conf<br>​    ├── syslog.py<br>​    ├── udp.py</p>
 <p>代码路径解释：</p>
 <p>config文件夹下存放的是配置文件logstash.yml，配置与logstash相关的配置。</p>
 <p>pipeline文件夹为管道文件，主要存放的是接收、输出、过滤日志信息的conf配置文件</p>
 <p>syslog.py和dup.py文件，主要用于测试，实现推送日志信息</p>
 <h4 id="2-2-logstash-yml配置"><a href="#2-2-logstash-yml配置" class="headerlink" title="2.2 logstash.yml配置"></a>2.2 logstash.yml配置</h4><p>​        在logstash.yml文件中设置如何运行logstash，当然也可以在启动logstash的时候在命令行中指定，所有在命令行中指定的参数会覆盖此文件中的配置。</p>
 <p>如下是我在logstash.yml中定义的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http.host: &quot;0.0.0.0&quot;</span><br><span class="line">path.logs: /var/log/logstash</span><br><span class="line">config.reload.automatic: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http.host: "0.0.0.0"</span><br><span class="line">path.logs: /var/log/logstash</span><br><span class="line">config.reload.automatic: true</span><br></pre></td></tr></tbody></table></figure>
 
 <p>参数解释：</p>
 <p>​    config.reload.automatic: true  表示：自动检测配置文件变动并自动重载。</p>
@@ -548,7 +580,7 @@
 </tr>
 <tr>
 <td><code>config.support_escapes</code></td>
-<td>设置为<code>true</code>之后，将处理一下转意: <code>\n</code> 转成换行符 (ASCII 10). <code>\r</code> 转成回车(ASCII 13). <code>\t</code> 转成tab (ASCII 9). <code>\\</code> 转成”&quot;本身 <code>\</code>. <code>\&quot;</code> 变成双引号 <code>\&#39;</code>变成引号</td>
+<td>设置为<code>true</code>之后，将处理一下转意: <code>\n</code> 转成换行符 (ASCII 10). <code>\r</code> 转成回车(ASCII 13). <code>\t</code> 转成tab (ASCII 9). <code>\\</code> 转成”"本身 <code>\</code>. <code>\"</code> 变成双引号 <code>\'</code>变成引号</td>
 <td><code>false</code></td>
 </tr>
 <tr>
@@ -614,7 +646,7 @@
 <tr>
 <td><code>http.host</code></td>
 <td>设置绑定的IP地址</td>
-<td><code>&quot;127.0.0.1&quot;</code></td>
+<td><code>"127.0.0.1"</code></td>
 </tr>
 <tr>
 <td><code>http.port</code></td>
@@ -644,24 +676,24 @@
 </tbody></table>
 <h4 id="2-3-pipeline管道配置"><a href="#2-3-pipeline管道配置" class="headerlink" title="2.3 pipeline管道配置"></a>2.3 pipeline管道配置</h4><p>​    从Logstash6.0开始，引入了Multiple Pipeline，用户可以在./config/pipeline.yml中配置单管道 或 多管道，并指定管道配置文件在./pipeline/in.conf文件和./pipeline/out.conf文件。启动logstash后，如果安装了X-Pack插件，就可以在<strong>Kibana-&gt;Monitoring-&gt;Logstash</strong> 中看到相关的管道信息。</p>
 <p>以下在pipeline文件夹下定义接收和输出日志的管道文件：</p>
-<h5 id="2-2-1-in-conf为定义接收日志的规则文件"><a href="#2-2-1-in-conf为定义接收日志的规则文件" class="headerlink" title="2.2.1 in.conf为定义接收日志的规则文件"></a>2.2.1 in.conf为定义接收日志的规则文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">    syslog &#123; </span><br><span class="line">        port =&gt; 514</span><br><span class="line">        grok_pattern =&gt; &quot;&lt;%&#123;POSINT:priority&#125;&gt;%&#123;GREEDYDATA:message&#125;&quot;</span><br><span class="line">        tags =&gt; &quot;linux&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-2-1-in-conf为定义接收日志的规则文件"><a href="#2-2-1-in-conf为定义接收日志的规则文件" class="headerlink" title="2.2.1 in.conf为定义接收日志的规则文件"></a>2.2.1 in.conf为定义接收日志的规则文件</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">input {</span><br><span class="line">    syslog { </span><br><span class="line">        port =&gt; 514</span><br><span class="line">        grok_pattern =&gt; "&lt;%{POSINT:priority}&gt;%{GREEDYDATA:message}"</span><br><span class="line">        tags =&gt; "linux"</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><strong>说明</strong>：通过514端口接收系统日志。其中使用grok组件来解析传入的数据，并转化具有结构化的数据。grok的详细用法方法，请看logstash-grok组件的使用规则</p>
-<h5 id="2-2-2-out-conf为定义输出日志的规则文件"><a href="#2-2-2-out-conf为定义输出日志的规则文件" class="headerlink" title="2.2.2 out.conf为定义输出日志的规则文件"></a>2.2.2 out.conf为定义输出日志的规则文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">output &#123;</span><br><span class="line">  stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-2-2-out-conf为定义输出日志的规则文件"><a href="#2-2-2-out-conf为定义输出日志的规则文件" class="headerlink" title="2.2.2 out.conf为定义输出日志的规则文件"></a>2.2.2 out.conf为定义输出日志的规则文件</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">output {</span><br><span class="line">  stdout { codec =&gt; rubydebug }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><strong>说明</strong>：rubydebug其实就是codec的一种编码格式，方便我们测试和调试，美化output输出，也可以理解成对输出进行格式化。</p>
 <h3 id="3-logstash-启动"><a href="#3-logstash-启动" class="headerlink" title="3. logstash 启动"></a>3. logstash 启动</h3><p>在in.conf管道文件中配置了接收<strong>端口为514的系统日志syslog</strong>，因此需要配置防火墙ACLs，参考地址：<a target="_blank" rel="noopener" href="https://discuss.elastic.co/t/logstash-bind-to-port-514/44022/9">https://discuss.elastic.co/t/logstash-bind-to-port-514/44022/9</a></p>
 <h4 id="3-1-防火墙"><a href="#3-1-防火墙" class="headerlink" title="3.1 防火墙"></a>3.1 防火墙</h4><p>syslog 端口日志转发命令，如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --zone=internal --add-port=514/udp #syslog port</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --zone=internal --add-port=514/udp #syslog port</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="3-2-Docker容器启动"><a href="#3-2-Docker容器启动" class="headerlink" title="3.2 Docker容器启动"></a>3.2 Docker容器启动</h4><p>docker容器启动的时候，需要注意以下几点：</p>
 <p>1）需要映射logstash.yml文件路径，即本地的logstash.yml必须与容器的/usr/share/logstash/config/logstash.yml形成映射关系。</p>
 <p>2）需要映射管道pipeline文件夹，即本地pipeline文件夹必须与容器的/usr/share/logstash/pipeline文件夹形成映射关系。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -u root -p 514:514/udp -v 	/media/psf/Home/study_workspace/logstatsh_study/config/logstash.yml:/usr/share/logstash/config/logstash.yml -v /media/psf/Home/study_workspace/logstatsh_study/pipeline/:/usr/share/logstash/pipeline/ --name=logstash  logstash:7.8.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd -u root -p 514:514/udp -v 	/media/psf/Home/study_workspace/logstatsh_study/config/logstash.yml:/usr/share/logstash/config/logstash.yml -v /media/psf/Home/study_workspace/logstatsh_study/pipeline/:/usr/share/logstash/pipeline/ --name=logstash  logstash:7.8.1</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="4-调试"><a href="#4-调试" class="headerlink" title="4. 调试"></a>4. 调试</h3><p>模拟向系统日志syslog 514端口发送日志消息，并在name为logstash的容器中查看接收并输出的日志信息。</p>
 <p>syslog.py中的代码逻辑如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> logging.handlers</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(<span class="string">&#x27;syslogtest&#x27;</span>)</span><br><span class="line">logger.setLevel(logging.INFO)</span><br><span class="line">sh = logging.handlers.SysLogHandler((<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">514</span>), logging.handlers.SysLogHandler.LOG_AUTH)</span><br><span class="line">logger.addHandler(sh)</span><br><span class="line"></span><br><span class="line">siplist = [<span class="string">&#x27;212.92.30.69&#x27;</span>, <span class="string">&#x27;94.74.172.218&#x27;</span>, <span class="string">&#x27;120.133.136.75&#x27;</span>, <span class="string">&#x27;49.36.247.72&#x27;</span>, <span class="string">&#x27;222.180.208.14&#x27;</span>, <span class="string">&#x27;111.19.157.70&#x27;</span>,</span><br><span class="line">           <span class="string">&#x27;133.18.208.232&#x27;</span>, <span class="string">&#x27;118.89.230.32&#x27;</span>, <span class="string">&#x27;184.145.167.92&#x27;</span>, <span class="string">&#x27;128.199.229.253&#x27;</span>, <span class="string">&#x27;61.224.201.44&#x27;</span>, <span class="string">&#x27;138.122.111.213&#x27;</span>,</span><br><span class="line">           <span class="string">&#x27;37.238.120.4&#x27;</span>]</span><br><span class="line">shashlist = [<span class="string">&#x27;00004e073dde06b8e0b462ac3c8bcc15&#x27;</span>]</span><br><span class="line"></span><br><span class="line">data = <span class="string">&#x27;May 25 11:11:56 localhost fwlog: 日志类型:WEB应用防护, 策略名称:waf1, 规则ID:0, 源IP:&#x27;</span> + siplist[<span class="number">0</span>] + \</span><br><span class="line">       <span class="string">&#x27;, 源端口:7224, 目的IP:192.168.254.31, 目的端口:80, 攻击类型:跨站请求伪造, 严重级别:低, 系统动作:允许, &#x27;</span> \</span><br><span class="line">       <span class="string">&#x27;URL:flag-760768087.amarilisperu.com/gate.html?location=09952f492400cff5b1680b990e21fe18 &#x27;</span></span><br><span class="line">logger.info(data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> logging.handlers</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(<span class="string">'syslogtest'</span>)</span><br><span class="line">logger.setLevel(logging.INFO)</span><br><span class="line">sh = logging.handlers.SysLogHandler((<span class="string">'127.0.0.1'</span>, <span class="number">514</span>), logging.handlers.SysLogHandler.LOG_AUTH)</span><br><span class="line">logger.addHandler(sh)</span><br><span class="line"></span><br><span class="line">siplist = [<span class="string">'212.92.30.69'</span>, <span class="string">'94.74.172.218'</span>, <span class="string">'120.133.136.75'</span>, <span class="string">'49.36.247.72'</span>, <span class="string">'222.180.208.14'</span>, <span class="string">'111.19.157.70'</span>,</span><br><span class="line">           <span class="string">'133.18.208.232'</span>, <span class="string">'118.89.230.32'</span>, <span class="string">'184.145.167.92'</span>, <span class="string">'128.199.229.253'</span>, <span class="string">'61.224.201.44'</span>, <span class="string">'138.122.111.213'</span>,</span><br><span class="line">           <span class="string">'37.238.120.4'</span>]</span><br><span class="line">shashlist = [<span class="string">'00004e073dde06b8e0b462ac3c8bcc15'</span>]</span><br><span class="line"></span><br><span class="line">data = <span class="string">'May 25 11:11:56 localhost fwlog: 日志类型:WEB应用防护, 策略名称:waf1, 规则ID:0, 源IP:'</span> + siplist[<span class="number">0</span>] + \</span><br><span class="line">       <span class="string">', 源端口:7224, 目的IP:192.168.254.31, 目的端口:80, 攻击类型:跨站请求伪造, 严重级别:低, 系统动作:允许, '</span> \</span><br><span class="line">       <span class="string">'URL:flag-760768087.amarilisperu.com/gate.html?location=09952f492400cff5b1680b990e21fe18 '</span></span><br><span class="line">logger.info(data)</span><br></pre></td></tr></tbody></table></figure>
 
 <p>通过portainer进行查看name为logstash的容器日志，可以发现执行python syslog.py命令后，容器的日志中正常打印了接收日志的内容，并通过grok进行了结构化的处理，如下图所示：</p>
 <p><img src="/medias/art_img/logstash%E6%97%A5%E5%BF%97%E6%89%93%E5%8D%B01.png"></p>
@@ -681,7 +713,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Wang Hai Fei</a>
+                    <a href="/about" rel="external nofollow noreferrer">王海飞</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -704,7 +736,7 @@
                     All articles in this blog are used except for special statements
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     reprint polocy. If reproduced, please indicate source
-                    <a href="/about" target="_blank">Wang Hai Fei</a>
+                    <a href="/about" target="_blank">王海飞</a>
                     !
                 </span>
             </div>
@@ -799,8 +831,12 @@
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Wang Hai Fei
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                    大数据
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -844,8 +880,12 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Wang Hai Fei
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                    大数据
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -868,13 +908,48 @@
 </div>
 
 
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + 'From: 技术博客<br />'
+            + 'Author: Wang Hai Fei<br />'
+            + 'Link: <a href="' + url + '">' + url + '</a><br />'
+            + '文章来源https://coco369.github.io/～～～～～～～～～～～～～～～本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
 
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->
