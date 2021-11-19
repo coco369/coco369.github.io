@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="beats系列～1.beats基础概念, 技术博客">
+    <meta name="keywords" content="beats系列～2.elastic stack部署, 技术博客">
     <meta name="description" content="王海飞的技术博客--爬虫、web、大数据、AI、云计算，以及也会发布一些外包项目的资源">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>beats系列～1.beats基础概念 | 技术博客</title>
+    <title>beats系列～2.elastic stack部署 | 技术博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -303,12 +303,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">beats系列～1.beats基础概念</h1>
+                    <h1 class="description center-align post-title">beats系列～2.elastic stack部署</h1>
                 </div>
             </div>
         </div>
@@ -491,30 +491,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    Beats作为Elastic Stack（Elasticsearch、Kibana、Logstash、Beats）中的一部分，能够安全可靠性的提供数据来源，最终将数据进行数据可视化、并提供数据实时搜索等功能。</p>
-<p>​    Beats作为安装在客户端的工具，具备多种数据指标采集的工具。以下将每一个beat的功能。</p>
-<h3 id="1-Beats概念"><a href="#1-Beats概念" class="headerlink" title="1. Beats概念"></a>1. Beats概念</h3><p>​    Beats是轻量级的的日志接收并推送到logstash 或 elasticsearch的程序集合。这些安装在客户端并收集日志信息 或 指标信息等工具，分别为filebeat、metricbeat、packetbeat、winglogbeat、heartbeat、auditbeat。</p>
-<p>1）filebeat</p>
-<p>​    最常用的日志收集和传送的工具</p>
-<p>2）metricbeat</p>
-<p>​    收集各种平台的指标数据。可参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/metricbeat/7.3/metricbeat-getting-started.html">https://www.elastic.co/guide/en/beats/metricbeat/7.3/metricbeat-getting-started.html</a></p>
-<p>3）packetbeat</p>
-<p>​    网络数据包分析器，用于捕获服务器之间的网络流量，应用于应用程序的性能监控</p>
-<p>4）winglogbeat</p>
-<p>​    专门为收集windows事件而设计的beat，用于分析安全事件、已安装的更新等</p>
-<p>5）heartbeat</p>
-<p>​    用于勘测服务器上的服务是否可访问。类似心跳服务</p>
-<p>6）auditbeat</p>
-<p>​    用于识别Linux的安全漏洞，配置更改，恶意行为等</p>
-<h3 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h3><p>Beats在整个elastic stack中其起到的功能在如下的结构图中呈现，如下图所示：</p>
-<p>​    <img src="/medias/art_img/elastic-stack%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="架构图"></p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    本文中将使用docker-compose容器化的形式来安装部署elastic stack（ELK）服务，部署方式可参考地址：<a target="_blank" rel="noopener" href="https://github.com/deviantony/docker-elk#initial-setup">https://github.com/deviantony/docker-elk#initial-setup</a></p>
+<h3 id="1-部署"><a href="#1-部署" class="headerlink" title="1. 部署"></a>1. 部署</h3><p>基于<a target="_blank" rel="noopener" href="https://github.com/deviantony/docker-elk#initial-setup">安装地址</a>提供的方式进行安装，安装过程如下图所示：</p>
+<p><img src="/medias/art_img/docker-elk.gif" alt="docker-elk"></p>
 <style>
-    img[alt="架构图"]{
+    img[alt="docker-elk"]{
         width:80%;
     }
 </style>
 
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+<p>通过以上方式将Elasticsearch、Logstash、Kibana安装成功。默认安装成功后，所有web端可访问站点的默认账号为elastic 密码为changeme</p>
+<h3 id="2-network网络"><a href="#2-network网络" class="headerlink" title="2. network网络"></a>2. network网络</h3><p>使用docker-compose.yml进行部署，需要了解docker-compse中定义的内容：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">version: '3.2'</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  elasticsearch:</span><br><span class="line">    build:</span><br><span class="line">      context: elasticsearch/</span><br><span class="line">      args:</span><br><span class="line">        ELK_VERSION: $ELK_VERSION</span><br><span class="line">    volumes:</span><br><span class="line">      - type: bind</span><br><span class="line">        source: ./elasticsearch/config/elasticsearch.yml</span><br><span class="line">        target: /usr/share/elasticsearch/config/elasticsearch.yml</span><br><span class="line">        read_only: true</span><br><span class="line">      - type: volume</span><br><span class="line">        source: elasticsearch</span><br><span class="line">        target: /usr/share/elasticsearch/data</span><br><span class="line">    ports:</span><br><span class="line">      - "9200:9200"</span><br><span class="line">      - "9300:9300"</span><br><span class="line">    environment:</span><br><span class="line">      ES_JAVA_OPTS: "-Xmx256m -Xms256m"</span><br><span class="line">      ELASTIC_PASSWORD: changeme</span><br><span class="line">      # Use single node discovery in order to disable production mode and avoid bootstrap checks.</span><br><span class="line">      # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html</span><br><span class="line">      discovery.type: single-node</span><br><span class="line">    networks:</span><br><span class="line">      - elk</span><br><span class="line"></span><br><span class="line">  logstash:</span><br><span class="line">    build:</span><br><span class="line">      context: logstash/</span><br><span class="line">      args:</span><br><span class="line">        ELK_VERSION: $ELK_VERSION</span><br><span class="line">    volumes:</span><br><span class="line">      - type: bind</span><br><span class="line">        source: ./logstash/config/logstash.yml</span><br><span class="line">        target: /usr/share/logstash/config/logstash.yml</span><br><span class="line">        read_only: true</span><br><span class="line">      - type: bind</span><br><span class="line">        source: ./logstash/pipeline</span><br><span class="line">        target: /usr/share/logstash/pipeline</span><br><span class="line">        read_only: true</span><br><span class="line">    ports:</span><br><span class="line">      - "5044:5044"</span><br><span class="line">      - "5000:5000/tcp"</span><br><span class="line">      - "5000:5000/udp"</span><br><span class="line">      - "9600:9600"</span><br><span class="line">    environment:</span><br><span class="line">      LS_JAVA_OPTS: "-Xmx256m -Xms256m"</span><br><span class="line">    networks:</span><br><span class="line">      - elk</span><br><span class="line">    depends_on:</span><br><span class="line">      - elasticsearch</span><br><span class="line"></span><br><span class="line">  kibana:</span><br><span class="line">    build:</span><br><span class="line">      context: kibana/</span><br><span class="line">      args:</span><br><span class="line">        ELK_VERSION: $ELK_VERSION</span><br><span class="line">    volumes:</span><br><span class="line">      - type: bind</span><br><span class="line">        source: ./kibana/config/kibana.yml</span><br><span class="line">        target: /usr/share/kibana/config/kibana.yml</span><br><span class="line">        read_only: true</span><br><span class="line">    ports:</span><br><span class="line">      - "5601:5601"</span><br><span class="line">    networks:</span><br><span class="line">      - elk</span><br><span class="line">    depends_on:</span><br><span class="line">      - elasticsearch</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  elk:</span><br><span class="line">    driver: bridge</span><br><span class="line"></span><br><span class="line">volumes:</span><br><span class="line">  elasticsearch:</span><br></pre></td></tr></tbody></table></figure>
+
+<p>以上的配置需要了解一下几点：</p>
+<ul>
+<li>bridge网络：docker-compose.yml中定义了容器elasticsearch、logstash、kibana，并分别都定义了elk的network，表明这三个容器都是用bridge网络（<strong>表示连接到同一个网桥的docker容器可以相互通信</strong>）。</li>
+<li>查看当前docker-compose up -d运行后的网络，可通过docker network ls进行查看，可以发现名称为docker-elk_elk的bridge网桥。</li>
+<li>services下定义的elasticsearch、logstash、kibana会自动加到名为docker-elk_elk的bridge网桥中，并在网桥中分别叫elasticsearch、logstash、kibana。因此在logstash中如需访问kibana或者elasticsearch，可以直接访问<a target="_blank" rel="noopener" href="http://kibana:5601/">http://kibana:5601</a> 或者<a target="_blank" rel="noopener" href="http://elasticsearch:9200/">http://elasticsearch:9200</a></li>
+<li>如果其他的容器也想访问elasticsearch、logstash、kibana这三个docker服务，即需要将待启动的容器加入到docker-elk_elk网络中即可。即 启动命令中添加network参数：docker run -itd –network docker-elk_elk …….</li>
+</ul>
+
                 
             </div>
             <hr/>
@@ -540,7 +537,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://coco.github.io/2021/11/19/beats-ji-chu-gai-nian-1/">http://coco.github.io/2021/11/19/beats-ji-chu-gai-nian-1/</a>
+                    <a href="http://coco.github.io/2021/11/19/beats-elasticstack-bu-shu-2/">http://coco.github.io/2021/11/19/beats-elasticstack-bu-shu-2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -627,13 +624,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/11/19/beats-elasticstack-bu-shu-2/">
+                <a href="/2021/11/19/beats-bu-shu-3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="beats系列～2.elastic stack部署">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="beats系列～3.beats部署">
                         
-                        <span class="card-title">beats系列～2.elastic stack部署</span>
+                        <span class="card-title">beats系列～3.beats部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -676,13 +673,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/16/elastalert-bu-shu-2/">
+                <a href="/2021/11/19/beats-ji-chu-gai-nian-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="elastalert系列～2.elastalert部署">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="beats系列～1.beats基础概念">
                         
-                        <span class="card-title">elastalert系列～2.elastalert部署</span>
+                        <span class="card-title">beats系列～1.beats基础概念</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -693,7 +690,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-19
                             </span>
                         <span class="publish-author">
                             
@@ -710,8 +707,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81elastalert/">
-                        <span class="chip bg-color">大数据、elastalert</span>
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81beat%E3%80%81elastic-stack/">
+                        <span class="chip bg-color">大数据、beat、elastic stack</span>
                     </a>
                     
                 </div>

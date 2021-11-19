@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="beats系列～1.beats基础概念, 技术博客">
+    <meta name="keywords" content="beats系列～3.beats部署, 技术博客">
     <meta name="description" content="王海飞的技术博客--爬虫、web、大数据、AI、云计算，以及也会发布一些外包项目的资源">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>beats系列～1.beats基础概念 | 技术博客</title>
+    <title>beats系列～3.beats部署 | 技术博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -303,12 +303,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">beats系列～1.beats基础概念</h1>
+                    <h1 class="description center-align post-title">beats系列～3.beats部署</h1>
                 </div>
             </div>
         </div>
@@ -491,30 +491,55 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    Beats作为Elastic Stack（Elasticsearch、Kibana、Logstash、Beats）中的一部分，能够安全可靠性的提供数据来源，最终将数据进行数据可视化、并提供数据实时搜索等功能。</p>
-<p>​    Beats作为安装在客户端的工具，具备多种数据指标采集的工具。以下将每一个beat的功能。</p>
-<h3 id="1-Beats概念"><a href="#1-Beats概念" class="headerlink" title="1. Beats概念"></a>1. Beats概念</h3><p>​    Beats是轻量级的的日志接收并推送到logstash 或 elasticsearch的程序集合。这些安装在客户端并收集日志信息 或 指标信息等工具，分别为filebeat、metricbeat、packetbeat、winglogbeat、heartbeat、auditbeat。</p>
-<p>1）filebeat</p>
-<p>​    最常用的日志收集和传送的工具</p>
-<p>2）metricbeat</p>
-<p>​    收集各种平台的指标数据。可参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/metricbeat/7.3/metricbeat-getting-started.html">https://www.elastic.co/guide/en/beats/metricbeat/7.3/metricbeat-getting-started.html</a></p>
-<p>3）packetbeat</p>
-<p>​    网络数据包分析器，用于捕获服务器之间的网络流量，应用于应用程序的性能监控</p>
-<p>4）winglogbeat</p>
-<p>​    专门为收集windows事件而设计的beat，用于分析安全事件、已安装的更新等</p>
-<p>5）heartbeat</p>
-<p>​    用于勘测服务器上的服务是否可访问。类似心跳服务</p>
-<p>6）auditbeat</p>
-<p>​    用于识别Linux的安全漏洞，配置更改，恶意行为等</p>
-<h3 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h3><p>Beats在整个elastic stack中其起到的功能在如下的结构图中呈现，如下图所示：</p>
-<p>​    <img src="/medias/art_img/elastic-stack%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="架构图"></p>
-<style>
-    img[alt="架构图"]{
-        width:80%;
-    }
-</style>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    Beats的部署方式和监控的日志/指标/心跳服务/安全漏洞有很多选择。可在kibana的‘Home’中‘Get started by adding your data’内添加被监控的数据来源。</p>
+<p>​    被监控的服务可以是apache、rabbitmq、kafka、mysql….等等等等</p>
+<p>​    以下将部署beats 容器以及监控docker的指标，并将数据通过logstash传输到elasticsearch，最终在kibana进行可视化展示。</p>
+<h3 id="1-部署Beats"><a href="#1-部署Beats" class="headerlink" title="1. 部署Beats"></a>1. 部署Beats</h3><p><strong>1）官网安装配置</strong></p>
+<p>​    在kibana的‘Home’中‘Get started by adding your data’ 选择需要加入被监控和采集的服务，比如使用metrics beats监控docker metrics。</p>
+<p><img src="/medias/art_img/docker-metrics%E5%9B%BE1.png"></p>
+<p>​    可根据官网的命令进行安装配置，</p>
+<ul>
+<li>下载metricbeat安装包</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.15.2-darwin-x86_64.tar.gz</span><br><span class="line">tar xzvf metricbeat-7.15.2-darwin-x86_64.tar.gz</span><br><span class="line">cd metricbeat-7.15.2-darwin-x86_64/</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+<ul>
+<li>配置metricbeat.yml</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">output.elasticsearch:</span><br><span class="line">  hosts: ["elasticseatch:9200"]</span><br><span class="line">  username: "elastic"</span><br><span class="line">  password: "changeme"</span><br><span class="line">setup.kibana:</span><br><span class="line">  host: "kibana:5601"</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>启动docker.yml配置</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 启动docker配置</span><br><span class="line">./metricbeat modules enable docker</span><br><span class="line"></span><br><span class="line"># 编辑 vi /modules.d/docker.yml </span><br><span class="line">- module: docker</span><br><span class="line">  metricsets:</span><br><span class="line">    - container</span><br><span class="line">    - cpu</span><br><span class="line">    - diskio</span><br><span class="line">    - event</span><br><span class="line">    - healthcheck</span><br><span class="line">    - info</span><br><span class="line">    - memory</span><br><span class="line">    - network</span><br><span class="line">  period: 10s</span><br><span class="line">  hosts: ["unix:///var/run/docker.sock"]</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>启动 Metricbeat</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./metricbeat setup</span><br><span class="line">./metricbeat -e</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>kibana中检查是否接收到metricbeat docker的指标数据</li>
+</ul>
+<p><img src="/medias/art_img/metricbeat-docker%E6%A3%80%E6%9F%A5%E6%88%90%E5%8A%9F.png"></p>
+<p><strong>2）docker安装</strong></p>
+<p><strong>注意</strong>：使用docker进行安装metricbeat时，需要将network指定为docker-elk_elk，这样处于同一网络下的kibana、logstash、elasticsearch就可以相互之间通信。</p>
+<ul>
+<li>启动metricbeat容器</li>
+</ul>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name metricbeat --user=root --network=docker-elk_elk  -v /var/run/docker.sock:/var/run/docker.sock elastic/metricbeat:7.9.2</span><br></pre></td></tr></tbody></table></figure>
+
+<ul>
+<li>相关文件metricbeat.yml、docker.yml，以及启动命令都和上面的执行步骤一致</li>
+</ul>
+<p><strong>3） 安装失败处理</strong></p>
+<p><strong>1&gt;</strong> 安装中出现截图中的错误：data path already locked by another beat. Please make sure that multiple beats are not sharing the same data path (path.data). </p>
+<p><img src="/medias/art_img/docker-metrics-lock%E5%A4%B1%E8%B4%A5.png"></p>
+<p>解决办法：删除data文件夹下的metricbeat.lock文件，然后重新执行./metricbeat -e 命令</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/metricbeat/data</span><br><span class="line">rm -rf metricbeat.lock</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="2-kibana监控docker效果"><a href="#2-kibana监控docker效果" class="headerlink" title="2. kibana监控docker效果"></a>2. kibana监控docker效果</h3><p><img src="/medias/art_img/docker-metrics%E5%9B%BE2.png"></p>
+
                 
             </div>
             <hr/>
@@ -540,7 +565,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://coco.github.io/2021/11/19/beats-ji-chu-gai-nian-1/">http://coco.github.io/2021/11/19/beats-ji-chu-gai-nian-1/</a>
+                    <a href="http://coco.github.io/2021/11/19/beats-bu-shu-3/">http://coco.github.io/2021/11/19/beats-bu-shu-3/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -623,17 +648,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/11/19/beats-elasticstack-bu-shu-2/">
+                <a href="/2021/11/19/beats-bu-shu-3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="beats系列～2.elastic stack部署">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="beats系列～3.beats部署">
                         
-                        <span class="card-title">beats系列～2.elastic stack部署</span>
+                        <span class="card-title">beats系列～3.beats部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -643,9 +669,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -658,6 +684,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -676,13 +703,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/16/elastalert-bu-shu-2/">
+                <a href="/2021/11/19/beats-elasticstack-bu-shu-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="elastalert系列～2.elastalert部署">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="beats系列～2.elastic stack部署">
                         
-                        <span class="card-title">elastalert系列～2.elastalert部署</span>
+                        <span class="card-title">beats系列～2.elastic stack部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -693,7 +720,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-19
                             </span>
                         <span class="publish-author">
                             
@@ -710,8 +737,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81elastalert/">
-                        <span class="chip bg-color">大数据、elastalert</span>
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81beat%E3%80%81elastic-stack/">
+                        <span class="chip bg-color">大数据、beat、elastic stack</span>
                     </a>
                     
                 </div>
