@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="minemeld系列～1.minemeld基础概念, 技术博客">
+    <meta name="keywords" content="beats系列～1.beats基础概念, 技术博客">
     <meta name="description" content="王海飞的技术博客--爬虫、web、大数据、AI、云计算，以及也会发布一些外包项目的资源">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>minemeld系列～1.minemeld基础概念 | 技术博客</title>
+    <title>beats系列～1.beats基础概念 | 技术博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -303,12 +303,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">minemeld系列～1.minemeld基础概念</h1>
+                    <h1 class="description center-align post-title">beats系列～1.beats基础概念</h1>
                 </div>
             </div>
         </div>
@@ -424,8 +424,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/">
-                                <span class="chip bg-color">大数据、报警、minemeld</span>
+                            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81beat%E3%80%81elastic-stack/">
+                                <span class="chip bg-color">大数据、beat、elastic stack</span>
                             </a>
                         
                     </div>
@@ -436,8 +436,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
-                                大数据
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81ELK/" class="post-category">
+                                大数据、ELK
                             </a>
                         
                     </div>
@@ -449,14 +449,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-11-10
+                    2021-11-19
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-15
+                    2021-11-19
                 </div>
                 
 
@@ -466,8 +466,8 @@
 
                 <div class="info-break-policy">
                     
-                        <i class="fa fa-pencil"></i> 作者: 王海飞
-                     
+                    <i class="fa fa-pencil"></i> 作者: 王海飞
+                    
                 </div>
 
                 
@@ -491,45 +491,30 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="MineMeld介绍"><a href="#MineMeld介绍" class="headerlink" title="MineMeld介绍"></a>MineMeld介绍</h3><p>​    MineMeld是一个开源的威胁情报系统，其实现了收集和共享来自各种来源的威胁情报数据。MineMeld具有高度自动化的收集和聚合威胁指标功能，以及易于使用的Web界面和出色的可视化界面。</p>
-<p>​    MineMeld是开源的，以下讲解MineMeld框架的内容</p>
-<p>​    MineMeld的git wiki地址: <a target="_blank" rel="noopener" href="https://github.com/PaloAltoNetworks/minemeld/wiki%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B8%AE%E5%8A%A9%E6%88%91%E4%BB%AC%E5%BF%AB%E9%80%9F%E7%9A%84%E4%BA%86%E8%A7%A3MineMeld%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E7%94%A8%E9%80%94%E3%80%82">https://github.com/PaloAltoNetworks/minemeld/wiki，可以帮助我们快速的了解MineMeld框架的使用用途。</a></p>
-<h3 id="1-MineMeld-代码"><a href="#1-MineMeld-代码" class="headerlink" title="1. MineMeld 代码"></a>1. MineMeld 代码</h3><p>​    MineMeld有两个重要的组件，核心代码组件 和 Web组件</p>
-<p>​    分别的地址为：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/PaloAltoNetworks/minemeld-core">MineMeld-Core</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/PaloAltoNetworks/minemeld-webui">MineMeld-WebUI</a></li>
-</ul>
-<h3 id="2-MineMeld组件"><a href="#2-MineMeld组件" class="headerlink" title="2. MineMeld组件"></a>2. MineMeld组件</h3><ul>
-<li>miner 是从各种来源收集威胁情报数据的组件，默认情况下预置了一些miner来实现特定用例场景的功能。如Office365</li>
-<li>processor 用于聚合 miner 获取的数据，目的是防止来自miner的重复输入。processor 处理器处于miner 和 output输出源之间</li>
-<li>output输出源基本上是恶意的URL和IP地址的编译列表，该列表可用于安全策略，主要用于阻止来自这些恶意URL和IP地址的流量</li>
-</ul>
-<p>MineMeld的三大组件miner、processor、output的图解如下所示：</p>
-<p><img src="/medias/art_img/minemeld%E7%BB%93%E6%9E%84%E5%9B%BE1.png"></p>
-<p>默认情况下，MineMeld有4个miners、1个processor、3个output</p>
-<h4 id="2-1-miners"><a href="#2-1-miners" class="headerlink" title="2.1 miners"></a>2.1 miners</h4><p>可参考对应的代码模块：minemeld.ft.http.HttpFT</p>
-<ul>
-<li><p>dshield_blocklist ：参考地址 <a target="_blank" rel="noopener" href="https://www.dshield.org/">https://www.dshield.org/</a></p>
-</li>
-<li><p>Spamhaus_DROP：参考地址 <a target="_blank" rel="noopener" href="https://www.spamhaus.org/">https://www.spamhaus.org/</a>, 保护用户信息安全，在威胁情报领域中起到领导性作用。用于安全过滤器DNSBL（阻止列表）, 以过滤垃圾邮箱为例，参考文档地址为：<a target="_blank" rel="noopener" href="https://www.spamhaus.org/whitepapers/dnsbl_function/">https://www.spamhaus.org/whitepapers/dnsbl_function/</a></p>
-</li>
-<li><p>Spamhaus_EDROP：参考地址 <a target="_blank" rel="noopener" href="https://www.spamhaus.org/%EF%BC%8C%E5%90%8C%E4%B8%8A">https://www.spamhaus.org/，同上</a></p>
-</li>
-<li><p>wlWhiteListIPv4：白名单列表</p>
-</li>
-</ul>
-<h4 id="2-2-processor"><a href="#2-2-processor" class="headerlink" title="2.2 processor"></a>2.2 processor</h4><p>可参考对应的代码模块：minemeld.ft.ipop.AggregateIPv4FT</p>
-<ul>
-<li>inboundaggregator：聚合处理器</li>
-</ul>
-<h4 id="2-3-output"><a href="#2-3-output" class="headerlink" title="2.3 output"></a>2.3 output</h4><p>将聚合处理器处理的结果输出到redis，可参考对应的代码模块：minemeld.ft.redis.RedisSet</p>
-<ul>
-<li>inboundfeedhc</li>
-<li>inboundfeedlc</li>
-<li>inboundfeedmc</li>
-</ul>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    Beats作为Elastic Stack（Elasticsearch、Kibana、Logstash、Beats）中的一部分，能够安全可靠性的提供数据来源，最终将数据进行数据可视化、并提供数据实时搜索等功能。</p>
+<p>​    Beats作为安装在客户端的工具，具备多种数据指标采集的工具。以下将每一个beat的功能。</p>
+<h3 id="1-Beats概念"><a href="#1-Beats概念" class="headerlink" title="1. Beats概念"></a>1. Beats概念</h3><p>​    Beats是轻量级的的日志接收并推送到logstash 或 elasticsearch的程序集合。这些安装在客户端并收集日志信息 或 指标信息等工具，分别为filebeat、metricbeat、packetbeat、winglogbeat、heartbeat、auditbeat。</p>
+<p>1）filebeat</p>
+<p>​    最常用的日志收集和传送的工具</p>
+<p>2）metricbeat</p>
+<p>​    收集各种平台的指标数据。可参考：<a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/beats/metricbeat/7.3/metricbeat-getting-started.html">https://www.elastic.co/guide/en/beats/metricbeat/7.3/metricbeat-getting-started.html</a></p>
+<p>3）packetbeat</p>
+<p>​    网络数据包分析器，用于捕获服务器之间的网络流量，应用于应用程序的性能监控</p>
+<p>4）winglogbeat</p>
+<p>​    专门为收集windows事件而设计的beat，用于分析安全事件、已安装的更新等</p>
+<p>5）heartbeat</p>
+<p>​    用于勘测服务器上的服务是否可访问。类似心跳服务</p>
+<p>6）auditbeat</p>
+<p>​    用于识别Linux的安全漏洞，配置更改，恶意行为等</p>
+<h3 id="2-作用"><a href="#2-作用" class="headerlink" title="2. 作用"></a>2. 作用</h3><p>Beats在整个elastic stack中其起到的功能在如下的结构图中呈现，如下图所示：</p>
+<p>​    <img src="/medias/art_img/elastic-stack%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="架构图"></p>
+<style>
+    img[alt="架构"]{
+        width:80%;
+    }
+</style>
 
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
                 
             </div>
             <hr/>
@@ -555,7 +540,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://coco.github.io/2021/11/10/minemeld/">http://coco.github.io/2021/11/10/minemeld/</a>
+                    <a href="http://coco.github.io/2021/11/19/beats-ji-chu-gai-nian-1/">http://coco.github.io/2021/11/19/beats-ji-chu-gai-nian-1/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -593,8 +578,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/">
-                                    <span class="chip bg-color">大数据、报警、minemeld</span>
+                                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81beat%E3%80%81elastic-stack/">
+                                    <span class="chip bg-color">大数据、beat、elastic stack</span>
                                 </a>
                             
                         </div>
@@ -638,17 +623,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/11/11/minemeld-1/">
+                <a href="/2021/11/19/beats-ji-chu-gai-nian-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="minemeld系列～2.minemeld-docker部署">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="beats系列～1.beats基础概念">
                         
-                        <span class="card-title">minemeld系列～2.minemeld-docker部署</span>
+                        <span class="card-title">beats系列～1.beats基础概念</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -658,26 +644,27 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
-                                    大数据
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81ELK/" class="post-category">
+                                    大数据、ELK
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/">
-                        <span class="chip bg-color">大数据、报警、minemeld</span>
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81beat%E3%80%81elastic-stack/">
+                        <span class="chip bg-color">大数据、beat、elastic stack</span>
                     </a>
                     
                 </div>
@@ -691,13 +678,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/05/logstash-2/">
+                <a href="/2021/11/16/elastalert-bu-shu-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="logstash系列～3.logstash grok语法">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="elastalert系列～2.elastalert部署">
                         
-                        <span class="card-title">logstash系列～3.logstash grok语法</span>
+                        <span class="card-title">elastalert系列～2.elastalert部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -708,14 +695,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-16
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
-                                    大数据
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81ELK/" class="post-category">
+                                    大数据、ELK
                                 </a>
                             
                             
@@ -725,8 +712,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81logstash/">
-                        <span class="chip bg-color">大数据、logstash</span>
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81elastalert/">
+                        <span class="chip bg-color">大数据、elastalert</span>
                     </a>
                     
                 </div>

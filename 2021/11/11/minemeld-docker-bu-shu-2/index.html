@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="minemeld系列～3.minemeld miner创建与应用, 技术博客">
+    <meta name="keywords" content="minemeld系列～2.minemeld-docker部署, 技术博客">
     <meta name="description" content="王海飞的技术博客--爬虫、web、大数据、AI、云计算，以及也会发布一些外包项目的资源">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>minemeld系列～3.minemeld miner创建与应用 | 技术博客</title>
+    <title>minemeld系列～2.minemeld-docker部署 | 技术博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -290,7 +290,7 @@
 <script src="/libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '';
+        let pwd = 'ea42915fc8861d919a0b2979b98348c825278a10f0cc4b3f427fcd5e32579ca4';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -303,12 +303,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">minemeld系列～3.minemeld miner创建与应用</h1>
+                    <h1 class="description center-align post-title">minemeld系列～2.minemeld-docker部署</h1>
                 </div>
             </div>
         </div>
@@ -456,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-16
+                    2021-11-19
                 </div>
                 
 
@@ -491,54 +491,58 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>​    通过上一篇文章已经能用docker进行容器化部署MineMeld服务了，本章中将安装应用youtube-miner和github-miner，以及自定义miner。</p>
-<p>1）youtube-miner 地址： <a target="_blank" rel="noopener" href="https://github.com/PaloAltoNetworks/youtube-miner">https://github.com/PaloAltoNetworks/youtube-miner</a></p>
-<p>2）github-miner 地址：<a target="_blank" rel="noopener" href="https://github.com/lampwins/github-miner">https://github.com/lampwins/github-miner</a></p>
-<h3 id="1-安装miner"><a href="#1-安装miner" class="headerlink" title="1. 安装miner"></a>1. 安装miner</h3><p>​    miner的安装方式分为2种，分别为源码安装、以及 wheel包安装</p>
-<h5 id="1）以下展示源码安装，即youtube-miner的安装方式，即"><a href="#1）以下展示源码安装，即youtube-miner的安装方式，即" class="headerlink" title="1）以下展示源码安装，即youtube-miner的安装方式，即"></a>1）以下展示源码安装，即youtube-miner的安装方式，即<img src="https://paloaltonetworks.github.io/youtube-miner/mm-git-extension.gif?_=2" alt="Installation" title="Installation"></h5><h5 id="2）以下采用wheel包安装"><a href="#2）以下采用wheel包安装" class="headerlink" title="2）以下采用wheel包安装"></a>2）以下采用wheel包安装</h5><p>先将源码pull拉取下来，然后通过打包命令，生成对应的wheel包</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install wheel</span><br><span class="line"></span><br><span class="line">python setup.py sdist bidet_wheel</span><br></pre></td></tr></tbody></table></figure>
-<p>然后再到MineMeld的 ‘SYSTEM’ –&gt; ‘EXTENSIONS’  界面中选择上传安装wheel文件。</p>
-<p>以上安装方式都可行</p>
-<h3 id="2-自定义MineMeld配置"><a href="#2-自定义MineMeld配置" class="headerlink" title="2. 自定义MineMeld配置"></a>2. 自定义MineMeld配置</h3><h4 id="2-1-默认Node配置"><a href="#2-1-默认Node配置" class="headerlink" title="2.1 默认Node配置"></a>2.1 默认Node配置</h4><p>​    MineMeld的配置是committed-config.yml文件，在docker容器中的位置在/opt/minemeld/local/config/committed-config.yml。默认该文件配置了以下内容：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">nodes:</span><br><span class="line">  spamhaus_EDROP:</span><br><span class="line">    output: true</span><br><span class="line">    prototype: spamhaus.EDROP</span><br><span class="line">  dshield_blocklist:</span><br><span class="line">    output: true</span><br><span class="line">    prototype: dshield.block</span><br><span class="line">  inboundaggregator:</span><br><span class="line">    inputs:</span><br><span class="line">      - spamhaus_DROP</span><br><span class="line">      - spamhaus_EDROP</span><br><span class="line">      - dshield_blocklist</span><br><span class="line">      - wlWhiteListIPv4</span><br><span class="line">    output: true</span><br><span class="line">    prototype: stdlib.aggregatorIPv4Inbound</span><br><span class="line">  inboundfeedhc:</span><br><span class="line">    inputs:</span><br><span class="line">      - inboundaggregator</span><br><span class="line">    output: false</span><br><span class="line">    prototype: stdlib.feedHCGreen</span><br><span class="line">  spamhaus_DROP:</span><br><span class="line">    output: true</span><br><span class="line">    prototype: spamhaus.DROP</span><br><span class="line">  wlWhiteListIPv4:</span><br><span class="line">    inputs: []</span><br><span class="line">    output: true</span><br><span class="line">    prototype: stdlib.listIPv4Generic</span><br><span class="line">  inboundfeedlc:</span><br><span class="line">    inputs:</span><br><span class="line">      - inboundaggregator</span><br><span class="line">    output: false</span><br><span class="line">    prototype: stdlib.feedLCGreen</span><br><span class="line">  inboundfeedmc:</span><br><span class="line">    inputs:</span><br><span class="line">      - inboundaggregator</span><br><span class="line">    output: false</span><br><span class="line">    prototype: stdlib.feedMCGreen</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-
-<p>MineMeld默认了4个miner、1个processor、3个outputs，具体每一个Node节点的功能可参考 ‘minemeld系列～1.minemeld基础概念’中的讲解。</p>
-<p>以上的默认配置构建了如下图中所示的mimer、processor、outputs:</p>
-<p><img src="/medias/art_img/minemeld%E7%BB%93%E6%9E%84%E5%9B%BE2.png" alt="结构图"></p>
-<style>
-    img[alt="结构图"]{
-        width: 60%;
-    }
-</style>
-
-
-
-<h4 id="2-2-自定义处理流程"><a href="#2-2-自定义处理流程" class="headerlink" title="2.2 自定义处理流程"></a>2.2 自定义处理流程</h4><p>​    自定义处理流程需要修改三个内容：</p>
+                <h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>本文采用Docker容器化的方式进行部署。</p>
+<p>MineMeld容器的安装，需要依赖以下内容：</p>
 <ul>
-<li>committed-config.yml：容器中位置/opt/minemeld/local/config/committed-config.yml</li>
-<li>新增prototype文件，如 deal_ip.yml文件：新增文件放于容器中位置/opt/minemeld/prototypes/0.9.70 或 /opt/minemeld/prototypes/current 中，具体位置有待测试</li>
-<li>新增miner、processor、outputs组件的处理逻辑：新增的可执行文件（如deal_ip.py文件）存放在/opt/minemeld/engine/0.9.70.post5/lib/python2.7/site-packages/minemeld/ft 路径下</li>
+<li>Docker</li>
+<li>Docker Compose</li>
+<li>Redis容器</li>
 </ul>
-<h4 id="2-3-案例"><a href="#2-3-案例" class="headerlink" title="2.3 案例"></a>2.3 案例</h4><p>以下定义的配置，是直接在容器中修改，<strong>未测试结果</strong>。</p>
-<p>配置修改如下：</p>
-<p>1）修改committed-config.yml中的内容，如下所示：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">nodes:</span><br><span class="line"></span><br><span class="line">  douban_input:</span><br><span class="line">    inputs: []</span><br><span class="line">    output: true</span><br><span class="line">    prototype: douban_pro.DoubanInClass</span><br><span class="line"></span><br><span class="line">  douban_processor:</span><br><span class="line">    inputs:</span><br><span class="line">      - douban_input</span><br><span class="line">    node_type: processor</span><br><span class="line">    prototype: douban_pro.DouBanProcessorClass</span><br><span class="line"></span><br><span class="line">  douban_output:</span><br><span class="line">    inputs:</span><br><span class="line">      - douban_processor</span><br><span class="line">    outputs: false</span><br><span class="line">    prototype: douban_pro.DouBanOutClass</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>注意</strong>：以下的操作中会使用到两台机器，A服务器 和 B服务器。</p>
+<p>​       A服务器 主要用于生成redis镜像压缩包</p>
+<p>​       B服务器 主要用于安装redis、mimemeld服务</p>
+<h3 id="1-安装Docker-和-Docker-Compose"><a href="#1-安装Docker-和-Docker-Compose" class="headerlink" title="1. 安装Docker 和 Docker Compose"></a>1. 安装Docker 和 Docker Compose</h3><p>​    Docker Compose 使用 yaml 文件使配置变得更加容易，我们可以在其中放置所有配置设置。以下将安装</p>
+<p>安装 Docker：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update -y &amp;&amp; sudo apt upgrade -y</span><br><span class="line">$ sudo apt install apt-transport-https ca-certificates curl software-properties-common</span><br><span class="line">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line">$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"</span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install docker-ce</span><br></pre></td></tr></tbody></table></figure>
 
-<p>​    committed-config.yml中定义的输入douban_input、处理器douban_processor、输出douban_output。并定义在prototype文件中deal_ip.yml内的处理逻辑</p>
-<p>2）新增deal_ip.yml中的内容如下：</p>
-<p>​    deal_ip.py文件主要实现类方法DoubanInClass、DoubanProcessorClass、DoubanOutClass。即真正的逻辑处理这些类方法中实现</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">url: https://www.douban.com/</span><br><span class="line">description: &gt;</span><br><span class="line">  test minemeld douban-miner</span><br><span class="line"></span><br><span class="line">prototypes:</span><br><span class="line">    DouBanIn:</span><br><span class="line">        author: whf</span><br><span class="line">        development_status: STABLE</span><br><span class="line">        node_type: miner</span><br><span class="line">        description: douban movie logs</span><br><span class="line">        config:</span><br><span class="line">            key: douban test</span><br><span class="line">            age_out:</span><br><span class="line">                default: 30</span><br><span class="line">                sudden_death: true</span><br><span class="line">        interval: 50000</span><br><span class="line">        class: minemeld.ft.deal_ip.DoubanInClass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    DouBanProcessor:</span><br><span class="line">        author: whf</span><br><span class="line">        development_status: STABLE</span><br><span class="line">        node_type: processor</span><br><span class="line">        tags: []</span><br><span class="line">        description: &gt;</span><br><span class="line">            douban logs processor</span><br><span class="line">        class: minemeld.ft.deal_ip.DoubanProcessorClass</span><br><span class="line">        config:</span><br><span class="line">            key: douban processor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    DouBanOut:</span><br><span class="line">        author: whf</span><br><span class="line">        development_status: STABLE</span><br><span class="line">        node_type: output</span><br><span class="line">        description: &gt;</span><br><span class="line">          douban logs putputs</span><br><span class="line">        class: minemeld.ft.deal_ip.DoubanOutClass</span><br><span class="line">        config:</span><br><span class="line">            key: douban outputs</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>安装 Docker-Compose：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose</span><br><span class="line">$ sudo chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></tbody></table></figure>
 
-<p>3）新增deal_ip.py的内容，如下:</p>
-<p>以下实现的类方法DoubanInClass、DoubanProcessorClass、DoubanOutClass 仅供参考。主要了解四个方法：</p>
-<ul>
-<li>__init__</li>
-<li>configure: 加载配置文件，从deal_ip.yml的config中获取配置参数</li>
-<li>_process_item: 返回组装的数据</li>
-<li>_build_iterator: 返回迭代列表对象</li>
-</ul>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">from . import basepoller</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class DoubanInClass(basepoller.BasePollerFT):</span><br><span class="line"></span><br><span class="line">    def __init__(self, name, chassis, config):</span><br><span class="line">        super(DoubanInClass, self).__init__(name, chassis, config)</span><br><span class="line"></span><br><span class="line">    def configure(self):</span><br><span class="line">        super(DoubanInClass, self).configure()</span><br><span class="line">        self.key = self.config.get('key', None)</span><br><span class="line">        self.interval = self.config.get('interval', 80000)</span><br><span class="line"></span><br><span class="line">    def _process_item(self, item):</span><br><span class="line">        return [[item[0], item[1]]]</span><br><span class="line"></span><br><span class="line">    def _build_iterator(self, now):</span><br><span class="line">        yield 'input', 'test'</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class DoubanProcessorClass(basepoller.BasePollerFT):</span><br><span class="line"></span><br><span class="line">    def __init__(self, name, chassis, config):</span><br><span class="line">        super(DoubanInClass, self).__init__(name, chassis, config)</span><br><span class="line"></span><br><span class="line">    def configure(self):</span><br><span class="line">        super(DoubanInClass, self).configure()</span><br><span class="line">        self.key = self.config.get('key', None)</span><br><span class="line">        self.interval = self.config.get('interval', 80000)</span><br><span class="line"></span><br><span class="line">    def _process_item(self, item):</span><br><span class="line">        return [[item[0], item[1]]]</span><br><span class="line"></span><br><span class="line">    def _build_iterator(self, now):</span><br><span class="line">        yield 'processor', 'test'</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class DoubanOutClass(basepoller.BasePollerFT):</span><br><span class="line"></span><br><span class="line">    def __init__(self, name, chassis, config):</span><br><span class="line">        super(DoubanInClass, self).__init__(name, chassis, config)</span><br><span class="line"></span><br><span class="line">    def configure(self):</span><br><span class="line">        super(DoubanInClass, self).configure()</span><br><span class="line">        self.key = self.config.get('key', None)</span><br><span class="line">        self.interval = self.config.get('interval', 80000)</span><br><span class="line"></span><br><span class="line">    def _process_item(self, item):</span><br><span class="line">        return [[item[0], item[1]]]</span><br><span class="line"></span><br><span class="line">    def _build_iterator(self, now):</span><br><span class="line">        yield 'out', 'test'</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="2-安装Redis"><a href="#2-安装Redis" class="headerlink" title="2. 安装Redis"></a>2. 安装Redis</h3><p>使用docker-compose进行redis的安装，并导出需要使用到的redis镜像</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir /redis</span><br><span class="line">$ cd /redis</span><br><span class="line">$ sudo vim docker-compose.yml</span><br></pre></td></tr></tbody></table></figure>
 
+<p>确保格式到位，因此没有不必要的空格，否则将无法解析文件。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">version: '3.7'</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line">  redis:</span><br><span class="line">    container_name: redis</span><br><span class="line">    image: redis</span><br><span class="line">    volumes:</span><br><span class="line">    - "/xxxxx/var/run/redis:/var/run/redis"</span><br><span class="line">    - "/xxxxx/var/lib/redis:/var/lib/redis"</span><br><span class="line">    - "/xxxxx/usr/local/etc/redis:/usr/local/etc/redis"</span><br><span class="line">    command: --appendonly yes</span><br><span class="line">    ports:</span><br><span class="line">    - "6379:6379"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意： 共享本地/xxxxx/usr/local/etc/redis路径，主要是要将该路径下的redis.conf文件映射到镜像的/usr/local/etc/redis/redis.conf。redis.conf为根据启动MimeMeld需求修改的相关启动配置，该文件存放在网盘，网盘链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ci1jGk03Ery0-ycfhii26A">https://pan.baidu.com/s/1ci1jGk03Ery0-ycfhii26A</a>  提取码的获取请联系我</p>
+<p>要启动容器：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose up -d</span><br></pre></td></tr></tbody></table></figure>
+
+<p>最后将生成的redis镜像导出成压缩包</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker save redis | gzip &gt; redis.tar.gz</span><br></pre></td></tr></tbody></table></figure>
+
+<p>A服务器中导出镜像文件后，拷贝redis.tar.gz到B服务器，并执行倒入镜像操作</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker load --input redis.tar.gz</span><br></pre></td></tr></tbody></table></figure>
+
+<p>B服务器中运行redis容器</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart=always --network host -d --name redis -v /usr/local/etc/redis/redis.conf:/usr/local/etc/redis/redis.conf -v /var/lib/redis:/var/lib/redis -v /var/run/redis:/var/run/redis redis redis-server /usr/local/etc/redis/redis.conf</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="3-安装MineMeld"><a href="#3-安装MineMeld" class="headerlink" title="3. 安装MineMeld"></a>3. 安装MineMeld</h3><p>在 B服务器中 创建一个新目录，用于存储 Minemeld 内容和 docker-compose.yml 文件。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir /minemeld</span><br><span class="line">$ cd /minemeld</span><br><span class="line">$ sudo vim docker-compose.yml</span><br></pre></td></tr></tbody></table></figure>
+
+<p>确保格式到位，因此没有不必要的空格，否则将无法解析文件。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">version: '3.3'</span><br><span class="line">services:</span><br><span class="line">    minemeld:</span><br><span class="line">        container_name: minemeld</span><br><span class="line">        image: paloaltonetworks/minemeld</span><br><span class="line">        restart: always</span><br><span class="line">        tmpfs: /run</span><br><span class="line">        volumes:</span><br><span class="line">            - './minemeld-local:/opt/minemeld/local'</span><br><span class="line">            - './minemeld-logs:/opt/minemeld/logs'</span><br><span class="line">        ports:</span><br><span class="line">            - '443:443'</span><br><span class="line">            - '80:80'</span><br></pre></td></tr></tbody></table></figure>
+
+<p>要启动容器：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose up -d</span><br></pre></td></tr></tbody></table></figure>
+
+<p>或者，您可以定义要使用的文件：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose -f docker-compose.yml up -d</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="4-访问MineMeld-Web"><a href="#4-访问MineMeld-Web" class="headerlink" title="4. 访问MineMeld Web"></a>4. 访问MineMeld Web</h3><p>Minemeld 启动并运行安装成功后，默认访问地址为本机IP地址或者127.0.0.1 。默认账号为 admin 、密码为 minemeld。</p>
+<p><img src="/medias/art_img/minemeld-web%E5%9B%BE1.png"></p>
 
                 
             </div>
@@ -565,7 +569,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://coco.github.io/2021/11/11/minemeld-2/">http://coco.github.io/2021/11/11/minemeld-2/</a>
+                    <a href="http://coco.github.io/2021/11/11/minemeld-docker-bu-shu-2/">http://coco.github.io/2021/11/11/minemeld-docker-bu-shu-2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -652,13 +656,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/11/16/elastalert/">
+                <a href="/2021/11/11/minemeld-miner-chuang-jian-yu-ying-yong-3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="elastalert系列～1.elastalert基础概念">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="minemeld系列～3.minemeld miner创建与应用">
                         
-                        <span class="card-title">elastalert系列～1.elastalert基础概念</span>
+                        <span class="card-title">minemeld系列～3.minemeld miner创建与应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -669,14 +673,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-16
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-11
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81ELK/" class="post-category">
-                                    大数据、ELK
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                    大数据
                                 </a>
                             
                             
@@ -686,8 +690,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81elastalert/">
-                        <span class="chip bg-color">大数据、elastalert</span>
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/">
+                        <span class="chip bg-color">大数据、报警、minemeld</span>
                     </a>
                     
                 </div>
@@ -701,13 +705,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/11/minemeld-1/">
+                <a href="/2021/11/10/minemeld-ji-chu-gai-nian-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="minemeld系列～2.minemeld-docker部署">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="minemeld系列～1.minemeld基础概念">
                         
-                        <span class="card-title">minemeld系列～2.minemeld-docker部署</span>
+                        <span class="card-title">minemeld系列～1.minemeld基础概念</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -718,7 +722,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-10
                             </span>
                         <span class="publish-author">
                             
