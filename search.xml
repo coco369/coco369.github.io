@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>beats系列～1.beats基础概念</title>
+      <link href="/2021/11/19/beats-ji-chu-gai-nian/"/>
+      <url>/2021/11/19/beats-ji-chu-gai-nian/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    Beats作为Elastic Stack（Elasticsearch、Kibana、Logstash、Beats）中的一部分，能够安全可靠性的提供数据来源，最终将数据进行数据可视化、并提供数据实时搜索等功能。</p><p>​    Beats作为安装在客户端的工具，具备多种数据指标采集的插件，其起到的功能在如下的结构图中呈现，如下图所示：</p><p>​    <img src="/medias/art_img/elastic-stack%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="架构图"></p><style>    img[alt="架构"]{        width:80%;    }</style>]]></content>
+      
+      
+      <categories>
+          
+          <category> 大数据、ELK </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 大数据、beat、elastic stack </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>elastalert系列～2.elastalert部署</title>
       <link href="/2021/11/16/elastalert-1/"/>
       <url>/2021/11/16/elastalert-1/</url>
