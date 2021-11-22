@@ -287,31 +287,128 @@
 
 </header>
 
-    <div class="blank" style="padding-top: 75px;">
-</div>
-<div id="content" class="site-content">
-  <div id="main">
-    <header class="page-header">
-      <h1 class="cat-title">
-      标签云</h1>
-      <span class="cat-des">
-        <p>
-          Tags 4</p>
-      </span>
-    </header>
-    <div id="main-part">
-   
-        <div class="tag-cloud">
-          <div class="tag-cloud-title">
-          </div>
-          <div class="tag-cloud-tags">
-          <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81beat%E3%80%81elastic-stack/" style="font-size: 30px; color: #09c">大数据、beat、elastic stack</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81elastalert/" style="font-size: 15px; color: #f66">大数据、elastalert</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81logstash/" style="font-size: 30px; color: #09c">大数据、logstash</a> <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/" style="font-size: 30px; color: #09c">大数据、报警、minemeld</a>
-          </div>
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
+    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+        <div class="brand">
+            <div class="title center-align">
+                
+                技术博客
+                
+            </div>
+
+            <div class="description center-align">
+                
+                <span id="subtitle"></span>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
+                        startDelay: 300,
+                        typeSpeed: 100,
+                        loop: true,
+                        backSpeed: 50,
+                        showCursor: true
+                    });
+                </script>
+                
+            </div>
         </div>
-      </div>
-    
-  </div>
+    </div>
 </div>
+
+
+<script>
+    // 每天切换 banner 图.  Switch banner image every day.
+    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
+    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
+</script>
+
+
+    </div>
+</div>
+
+<main class="content">
+
+    
+
+<div id="tags" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
+            </div>
+            <div class="tag-chips">
+                
+                
+                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81logstash/" title="大数据、logstash: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="大数据、logstash" style="background-color: #F9EBEA;">大数据、logstash
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/" title="大数据、报警、minemeld: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="大数据、报警、minemeld" style="background-color: #F5EEF8;">大数据、报警、minemeld
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81elastalert/" title="大数据、elastalert: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="大数据、elastalert" style="background-color: #D5F5E3;">大数据、elastalert
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81beat%E3%80%81elastic-stack/" title="大数据、beat、elastic stack: 3">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="大数据、beat、elastic stack" style="background-color: #E8F8F5;">大数据、beat、elastic stack
+                        <span class="tag-length">3</span>
+                    </span>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <link rel="stylesheet" type="text/css" href="/libs/jqcloud/jqcloud.css">
+<style type="text/css">
+    #tag-wordcloud {
+        width: 100%;
+        height: 300px;
+    }
+</style>
+
+<div class="container" data-aos="fade-up">
+    <div class="card">
+        <div id="tag-wordcloud" class="card-content"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/libs/jqcloud/jqcloud-1.0.4.min.js"></script>
+<script type="text/javascript">
+    
+
+    $('#tag-wordcloud').jQCloud([{"text":"大数据、logstash","weight":3,"link":"/tags/大数据、logstash/"},{"text":"大数据、报警、minemeld","weight":3,"link":"/tags/大数据、报警、minemeld/"},{"text":"大数据、elastalert","weight":2,"link":"/tags/大数据、elastalert/"},{"text":"大数据、beat、elastic stack","weight":3,"link":"/tags/大数据、beat、elastic-stack/"}], {
+        autoResize: true
+    });
+</script>
+
+    
+
+</main>
 
 
 
