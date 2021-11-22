@@ -13,7 +13,7 @@
       
       <categories>
           
-          <category> 大数据、ELK </category>
+          <category> Beats </category>
           
       </categories>
       
@@ -38,7 +38,7 @@
       
       <categories>
           
-          <category> 大数据、ELK </category>
+          <category> Beats </category>
           
       </categories>
       
@@ -63,7 +63,7 @@
       
       <categories>
           
-          <category> 大数据、ELK </category>
+          <category> Beats </category>
           
       </categories>
       
@@ -88,7 +88,7 @@
       
       <categories>
           
-          <category> 大数据、ELK </category>
+          <category> Elastalert </category>
           
       </categories>
       
@@ -113,7 +113,7 @@
       
       <categories>
           
-          <category> 大数据、ELK </category>
+          <category> Elastalert </category>
           
       </categories>
       
@@ -138,7 +138,7 @@
       
       <categories>
           
-          <category> 大数据 </category>
+          <category> MineMeld </category>
           
       </categories>
       
@@ -163,7 +163,7 @@
       
       <categories>
           
-          <category> 大数据 </category>
+          <category> MineMeld </category>
           
       </categories>
       
@@ -188,7 +188,7 @@
       
       <categories>
           
-          <category> 大数据 </category>
+          <category> MineMeld </category>
           
       </categories>
       
@@ -213,7 +213,7 @@
       
       <categories>
           
-          <category> 大数据 </category>
+          <category> Logstash </category>
           
       </categories>
       
@@ -238,7 +238,7 @@
       
       <categories>
           
-          <category> 大数据 </category>
+          <category> Logstash </category>
           
       </categories>
       
@@ -263,7 +263,7 @@
       
       <categories>
           
-          <category> 大数据 </category>
+          <category> Logstash </category>
           
       </categories>
       
