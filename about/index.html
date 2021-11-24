@@ -287,547 +287,512 @@
 
 </header>
 
-    
-<script src="/libs/cryptojs/crypto-js.min.js"></script>
-<script>
-    (function() {
-        let pwd = '';
-        if (pwd && pwd.length > 0) {
-            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
-                alert('密码错误，将返回主页！');
-                location.href = '/';
-            }
-        }
-    })();
-</script>
-
-
-
-
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
-    <div class="container" style="right: 0px;left: 0px;">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">关于我</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<main class="post-container content">
-
-    
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
-<style>
-    #articleContent h1::before,
-    #articleContent h2::before,
-    #articleContent h3::before,
-    #articleContent h4::before,
-    #articleContent h5::before,
-    #articleContent h6::before {
-        display: block;
-        content: " ";
-        height: 100px;
-        margin-top: -100px;
-        visibility: hidden;
-    }
-
-    #articleContent :focus {
-        outline: none;
-    }
-
-    .toc-fixed {
-        position: fixed;
-        top: 64px;
-    }
-
-    .toc-widget {
-        width: 345px;
-        padding-left: 20px;
-    }
-
-    .toc-widget .toc-title {
-        padding: 35px 0 15px 17px;
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
-
-    .toc-widget ol {
-        padding: 0;
-        list-style: none;
-    }
-
-    #toc-content {
-        padding-bottom: 30px;
-        overflow: auto;
-    }
-
-    #toc-content ol {
-        padding-left: 10px;
-    }
-
-    #toc-content ol li {
-        padding-left: 10px;
-    }
-
-    #toc-content .toc-link:hover {
-        color: #42b983;
-        font-weight: 700;
-        text-decoration: underline;
-    }
-
-    #toc-content .toc-link::before {
-        background-color: transparent;
-        max-height: 25px;
-
-        position: absolute;
-        right: 23.5vw;
-        display: block;
-    }
-
-    #toc-content .is-active-link {
-        color: #42b983;
-    }
-
-    #floating-toc-btn {
-        position: fixed;
-        right: 15px;
-        bottom: 76px;
-        padding-top: 15px;
-        margin-bottom: 0;
-        z-index: 998;
-    }
-
-    #floating-toc-btn .btn-floating {
-        width: 48px;
-        height: 48px;
-    }
-
-    #floating-toc-btn .btn-floating i {
-        line-height: 48px;
-        font-size: 1.4rem;
+    <style type="text/css">
+    /* don't remove. */
+    .about-cover {
+        height: 75vh;
     }
 </style>
-<div class="row">
-    <div id="main-content" class="col s12 m12 l9">
-        <!-- 文章内容详情 -->
-<div id="artDetail">
-    <div class="card">
-        <div class="card-content article-info">
-            <div class="row tag-cate">
-                <div class="col s7">
-                    
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
-                    
-                </div>
-                <div class="col s5 right-align">
-                    
-                </div>
-            </div>
 
-            <div class="post-info">
+<div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
+    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+        <div class="brand">
+            <div class="title center-align">
                 
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-11-02
-                </div>
-                
-
-                
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-16
-                </div>
-                
-
-                
-
-                
-
-                <div class="info-break-policy">
-                    
-                        <i class="fa fa-pencil"></i> 作者: 王海飞
-                     
-                </div>
-
-                
-                    <div id="busuanzi_container_page_pv" class="info-break-policy">
-                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
-                        <span id="busuanzi_value_page_pv"></span>
-                    </div>
-				
-            </div>
-        </div>
-        <hr class="clearfix">
-
-        
-
-        
-        <!-- 代码块折行 -->
-        <style type="text/css">
-            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
-        </style>
-        
-
-        <div class="card-content article-card-content">
-            <div id="articleContent">
-                <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>王海飞（Python高级软件开发工程师）</p>
-<p>涉猎领域：Python Web开发、爬虫开发、大数据分析开发、快递物流算法开发<br>​<br>简单简介：精通python语言、Go语言、熟练的运用Django、Flask、Tornado等框架，熟练使用CentOS7/Ubuntu操作系统，熟练使用代码管理工具git，熟悉mysql，mongodb，熟悉掌握前端技术，javascript、css、vue、uniapp等，熟练使用docker容器技术进行项目部署。<br>​<br>作品：出版Python书籍《Python web从入门都精通》、开源爬虫fastpisder框架</p>
-<h3 id="书籍介绍"><a href="#书籍介绍" class="headerlink" title="书籍介绍"></a>书籍介绍</h3><p><img src="/medias/art_img/%E5%85%B3%E4%BA%8E%E6%88%91-%E5%87%BA%E7%89%88%E4%B9%A6%E7%B1%8D.jpeg" alt="Python从入门到精通"></p>
-<p>各大电商网站均有销售，如天猫、京东、当当等</p>
-<p>jd链接地址：<a target="_blank" rel="noopener" href="https://item.jd.com/10029241959715.html">https://item.jd.com/10029241959715.html</a><br>​<br>当当链接地址：<a target="_blank" rel="noopener" href="http://product.dangdang.com/29128606.html">http://product.dangdang.com/29128606.html</a><br>​<br>天猫链接地址：<a target="_blank" rel="noopener" href="https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.1.10fb59dcl0blrV&amp;id=627956294358&amp;skuId=null&amp;user_id=3296590660&amp;cat_id=2&amp;is_b=1&amp;rn=9e7637a782d0900fc8f28c3c1555e2a0">https://detail.tmall.com/item.htm?spm=a220m.1000858.1000725.1.10fb59dcl0blrV&amp;id=627956294358&amp;skuId=null&amp;user_id=3296590660&amp;cat_id=2&amp;is_b=1&amp;rn=9e7637a782d0900fc8f28c3c1555e2a0</a></p>
-<h3 id="fastspider开源爬虫框架"><a href="#fastspider开源爬虫框架" class="headerlink" title="fastspider开源爬虫框架"></a>fastspider开源爬虫框架</h3><p>开源爬虫框架文档地址：<a target="_blank" rel="noopener" href="https://coco369.github.io/fastspider_doc">https://coco369.github.io/fastspider_doc</a></p>
-<style>
-img[alt="Python从入门到精通"]{
-  width:80%;
-}
-</style>
+                技术博客
                 
             </div>
-            <hr/>
 
-            
-
-    <div class="reprint" id="reprint-statement">
-        
-            <div class="reprint__author">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-user">
-                        文章作者:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">王海飞</a>
-                </span>
+            <div class="description center-align">
+                
+                <span id="subtitle"></span>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
+                        startDelay: 300,
+                        typeSpeed: 100,
+                        loop: true,
+                        backSpeed: 50,
+                        showCursor: true
+                    });
+                </script>
+                
             </div>
-            <div class="reprint__type">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-link">
-                        文章链接:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    <a href="http://coco.github.io/about/index.html">http://coco.github.io/about/index.html</a>
-                </span>
-            </div>
-            <div class="reprint__notice">
-                <span class="reprint-meta" style="font-weight: bold;">
-                    <i class="fas fa-copyright">
-                        版权声明:
-                    </i>
-                </span>
-                <span class="reprint-info">
-                    本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
-                    许可协议。转载请注明来源
-                    <a href="/about" target="_blank">王海飞</a>
-                    !
-                </span>
-            </div>
-        
-    </div>
-
-    <script async defer>
-      document.addEventListener("copy", function (e) {
-        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
-        M.toast({html: toastHTML})
-      });
-
-      function navToReprintStatement() {
-        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
-      }
-    </script>
-
-
-
-            <div class="tag_share" style="display: block;">
-                <div class="post-meta__tag-list" style="display: inline-block;">
-                    
-                        <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                        </div>
-                    
-                </div>
-                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
-<div id="article-share">
-
-    
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="/libs/share/js/social-share.min.js"></script>
-    
-
-    
-
-</div>
-
-                </div>
-            </div>
-            
         </div>
     </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-<article id="prenext-posts" class="prev-next articles">
-    <div class="row article-row">
-        
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
-            <div class="card">
-                <a href="/about/index.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="关于我">
-                        
-                        <span class="card-title">关于我</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-02
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            王海飞
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/about/index.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="关于我">
-                        
-                        <span class="card-title">关于我</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-02
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            王海飞
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-            </div>
-        </div>
-        
-    </div>
-</article>
-
 </div>
 
 
 <script>
-    $('#articleContent').on('copy', function (e) {
-        // IE8 or earlier browser is 'undefined'
-        if (typeof window.getSelection === 'undefined') return;
-
-        var selection = window.getSelection();
-        // if the selection is short let's not annoy our users.
-        if (('' + selection).length < Number.parseInt('1')) {
-            return;
-        }
-
-        // create a div outside of the visible area and fill it with the selected text.
-        var bodyElement = document.getElementsByTagName('body')[0];
-        var newdiv = document.createElement('div');
-        newdiv.style.position = 'absolute';
-        newdiv.style.left = '-99999px';
-        bodyElement.appendChild(newdiv);
-        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
-
-        // we need a <pre> tag workaround.
-        // otherwise the text inside "pre" loses all the line breaks!
-        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
-            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
-        }
-
-        var url = document.location.href;
-        newdiv.innerHTML += '<br />'
-            + '来源: 技术博客<br />'
-            + '文章作者: 王海飞<br />'
-            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
-            + '文章来源https://coco369.github.io/～～～～～～～～～～～～～～～本文章著作权归作者所有，任何形式的转载都请注明出处。';
-
-        selection.selectAllChildren(newdiv);
-        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
-    });
+    // 每天切换 banner 图.  Switch banner image every day.
+    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
+    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
 </script>
 
 
-<!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
-
-<!-- 代码语言 -->
-
-
-<!-- 代码块复制 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
-
-
-<!-- 代码块收缩 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
-
-
-    </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget card" style="background-color: white;">
-            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
-            <div id="toc-content"></div>
-        </div>
     </div>
 </div>
 
-<!-- TOC 悬浮按钮. -->
+<main class="content">
 
-<div id="floating-toc-btn" class="hide-on-med-and-down">
-    <a class="btn-floating btn-large bg-color">
-        <i class="fas fa-list-ul"></i>
+    <div id="aboutme" class="container about-container">
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
+                        
+<div class="statis">
+    <span class="count"><a href="/">11</a></span>
+    <span class="name">文章</span>
+</div>
+
+
+
+<div class="statis">
+    <span class="count"><a href="/categories">4</a></span>
+    <span class="name">分类</span>
+</div>
+
+
+
+<div class="statis">
+    <span class="count"><a href="/tags">4</a></span>
+    <span class="name">标签</span>
+</div>
+
+
+                    </div>
+                    <div class="col s12 m12 l4">
+                        <div class="profile center-align">
+                            <div class="avatar">
+                                <img src="/medias/avatar.jpg" alt="王海飞"
+                                     class="circle responsive-img avatar-img">
+                            </div>
+                            <div class="author">
+                                <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
+                                    
+<div class="statis">
+    <span class="count"><a href="/">11</a></span>
+    <span class="name">文章</span>
+</div>
+
+
+
+<div class="statis">
+    <span class="count"><a href="/categories">4</a></span>
+    <span class="name">分类</span>
+</div>
+
+
+
+<div class="statis">
+    <span class="count"><a href="/tags">4</a></span>
+    <span class="name">标签</span>
+</div>
+
+
+                                </div>
+                                <div class="title">王海飞</div>
+                                <div class="career">Python高级软件开发工程师</div>
+                                <div class="social-link hide-on-large-only" data-aos="zoom-in-left">
+                                    
+    <a href="https://github.com/coco369" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
     </a>
+
+
+
+    <a href="mailto:779598160@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l4 hide-on-med-and-down" data-aos="zoom-in-left">
+                        <div class="social-link">
+                            
+    <a href="https://github.com/coco369" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:779598160@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="introduction center-align" data-aos="fade-up">精通python语言、Go语言、熟练的运用Django、Flask、Tornado等框架，熟练使用CentOS7/Ubuntu操作系统，熟练使用代码管理工具git，熟悉mysql，mongodb，熟悉掌握前端技术，javascript、css、vue、uniapp等，熟练使用docker容器技术进行项目部署。</div>
+
+                <style type="text/css">
+    #posts-chart,
+    #categories-chart,
+    #tags-chart {
+        width: 100%;
+        height: 300px;
+        margin: 0.5rem auto;
+        padding: 0.5rem;
+    }
+</style>
+
+<div id="postCharts" class="post-charts">
+    <div class="title center-align" data-aos="zoom-in-up">
+        <i class="far fa-bar-chart"></i>&nbsp;&nbsp;文章统计图
+    </div>
+    <div class="row">
+        <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
+            <div id="posts-chart"></div>
+        </div>
+
+        <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
+            <div id="categories-chart"></div>
+        </div>
+
+        <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
+            <div id="tags-chart"></div>
+        </div>
+    </div>
 </div>
 
+<script type="text/javascript" src="/libs/echarts/echarts.min.js"></script>
+<script>
+    let postsChart = echarts.init(document.getElementById('posts-chart'));
+    let categoriesChart = echarts.init(document.getElementById('categories-chart'));
+    let tagsChart = echarts.init(document.getElementById('tags-chart'));
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
+    
+
+    let postsOption = {
+        title: {
+            text: '文章发布统计图',
+            top: -5,
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'category',
+            data: ["2020-11","2020-12","2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11"]
+        },
+        yAxis: {
+            type: 'value',
+        },
+        series: [
+            {
+                name: '文章篇数',
+                type: 'line',
+                color: ['#6772e5'],
+                data: [0,0,0,0,0,0,0,0,0,0,0,0,11],
+                markPoint: {
+                    symbolSize: 45,
+                    color: ['#fa755a','#3ecf8e','#82d3f4'],
+                    data: [{
+                        type: 'max',
+                        itemStyle: {color: ['#3ecf8e']},
+                        name: '最大值'
+                    }, {
+                        type: 'min',
+                        itemStyle: {color: ['#fa755a']},
+                        name: '最小值'
+                    }]
+                },
+                markLine: {
+                    itemStyle: {color: ['#ab47bc']},
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+
+    
+
+    let categoriesOption = {
+        title: {
+            text: '文章分类统计图',
+            top: -4,
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        series: [
+            {
+                name: '分类',
+                type: 'pie',
+                radius: '50%',
+                color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
+                data: [{"name":"Beats","value":3},{"name":"Elastalert","value":2},{"name":"Logstash","value":3},{"name":"MineMeld","value":3}],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    
+
+    let tagsOption = {
+        title: {
+            text: 'TOP10 标签统计图',
+            top: -5,
+            x: 'center'
+        },
+        tooltip: {},
+        xAxis: [
+            {
+                type: 'category',
+                data: ["大数据、logstash","大数据、报警、minemeld","大数据、beat、elastic stack","大数据、elastalert"]
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                type: 'bar',
+                color: ['#82d3f4'],
+                barWidth : 18,
+                data: [3,3,3,2],
+                markPoint: {
+                    symbolSize: 45,
+                    data: [{
+                        type: 'max',
+                        itemStyle: {color: ['#3ecf8e']},
+                        name: '最大值'
+                    }, {
+                        type: 'min',
+                        itemStyle: {color: ['#fa755a']},
+                        name: '最小值'
+                    }],
+                },
+                markLine: {
+                    itemStyle: {color: ['#ab47bc']},
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            }
+        ]
+    };
+
+    // render the charts
+    postsChart.setOption(postsOption);
+    categoriesChart.setOption(categoriesOption);
+    tagsChart.setOption(tagsOption);
+</script>
+
+
+                
+
+                
+                
+<div class="my-skills">
+    <div class="title center-align" data-aos="zoom-in-up">
+        <i class="fas fa-wrench"></i>&nbsp;&nbsp;我的技能
+    </div>
+    <div class="row">
+        
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #FF0066 0%, #FF00CC 100%); width: 85%">
+                    <span>Java</span>
+                </div>
+                <div class="skill-bar-percent">85%</div>
+            </div>
+        </div>
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #9900FF 0%, #CC66FF 100%); width: 80%">
+                    <span>JavaScript</span>
+                </div>
+                <div class="skill-bar-percent">80%</div>
+            </div>
+        </div>
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #2196F3 0%, #42A5F5 100%); width: 80%">
+                    <span>HTML5</span>
+                </div>
+                <div class="skill-bar-percent">80%</div>
+            </div>
+        </div>
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #00BCD4 0%, #80DEEA 100%); width: 70%">
+                    <span>CSS</span>
+                </div>
+                <div class="skill-bar-percent">70%</div>
+            </div>
+        </div>
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #4CAF50 0%, #81C784 100%); width: 90%">
+                    <span>SQL</span>
+                </div>
+                <div class="skill-bar-percent">90%</div>
+            </div>
+        </div>
+        
+        
+        <div class="col s12 m6 l6" data-aos="fade-up">
+            <div class="skillbar">
+                <div class="skillbar-title"
+                     style="background: linear-gradient(to right, #FFEB3B 0%, #FFF176 100%); width: 75%">
+                    <span>程序设计</span>
+                </div>
+                <div class="skill-bar-percent">75%</div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    
+
+    
+    <div class="other-skills chip-container" data-aos="zoom-in-up">
+        <div class="sub-title center-align"><i class="fa fa-book"></i>&nbsp;&nbsp;其他技能</div>
+        <div class="tag-chips center-align">
+            
+            
+            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81logstash/">
+                <span class="chip center-align waves-effect waves-light chip-default">大数据、logstash</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/">
+                <span class="chip center-align waves-effect waves-light chip-default">大数据、报警、minemeld</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81elastalert/">
+                <span class="chip center-align waves-effect waves-light chip-default">大数据、elastalert</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81beat%E3%80%81elastic-stack/">
+                <span class="chip center-align waves-effect waves-light chip-default">大数据、beat、elastic stack</span>
+            </a>
+            
+            
+        </div>
+    </div>
+    
+
+</div>
+
+                
+
+                
+                
+<div id="myGallery" class="my-gallery">
+    <div class="title center-align" data-aos="zoom-in-up">
+        <i class="far fa-image"></i>&nbsp;&nbsp;相册
+    </div>
+    <div class="row">
+        
+        
+        <div class="photo col s12 m6 l4" data-aos="fade-up">
+            <div class="img-item" data-src="/medias/featureimages/0.jpg">
+                <img src="/medias/featureimages/0.jpg" class="responsive-img">
+            </div>
+        </div>
+        
+        <div class="photo col s12 m6 l4" data-aos="fade-up">
+            <div class="img-item" data-src="/medias/featureimages/1.jpg">
+                <img src="/medias/featureimages/1.jpg" class="responsive-img">
+            </div>
+        </div>
+        
+        <div class="photo col s12 m6 l4" data-aos="fade-up">
+            <div class="img-item" data-src="/medias/featureimages/2.jpg">
+                <img src="/medias/featureimages/2.jpg" class="responsive-img">
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
 <script>
     $(function () {
-        tocbot.init({
-            tocSelector: '#toc-content',
-            contentSelector: '#articleContent',
-            headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+        let animateClass = 'animated pulse';
+        $('#myGallery .photo').hover(function () {
+            $(this).addClass(animateClass);
+        }, function () {
+            $(this).removeClass(animateClass);
         });
-
-        // modify the toc link href to support Chinese.
-        let i = 0;
-        let tocHeading = 'toc-heading-';
-        $('#toc-content a').each(function () {
-            $(this).attr('href', '#' + tocHeading + (++i));
-        });
-
-        // modify the heading title id to support Chinese.
-        i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
-            $(this).attr('id', tocHeading + (++i));
-        });
-
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
-
-        
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
-
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
-        const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
-            if ($tocAside.hasClass(expandedClass)) {
-                $tocAside.removeClass(expandedClass).hide();
-                $mainContent.removeClass('l9');
-            } else {
-                $tocAside.addClass(expandedClass).show();
-                $mainContent.addClass('l9');
-            }
-            fixPostCardWidth('artDetail', 'prenext-posts');
-        });
-        
     });
 </script>
 
-    
+                
 
+            </div>
+        </div>
+    </div>
 </main>
-
-
 
 
     <footer class="page-footer bg-color">
