@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>logstash系列～4.logstash-filter-jdbc_static插件</title>
+      <link href="/2021/11/30/logstash-jdbc-fu-hua-cha-jian-4/"/>
+      <url>/2021/11/30/logstash-jdbc-fu-hua-cha-jian-4/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    在众多的Logstash过滤器中，许多过滤器都可以对pipeline的数据进行富化操作，其中比较常用的就是jdbc_static，其可以通过调用远程数据库的预加载数据进行pipeline数据的丰富化操作。</p><p>​    logstash-filter-jdbc_static插件最适合于静态 或 不经常更改的数据的“丰富化”处理。</p><p>​    依赖准备：Mysql</p><p>​    实现功能：将logstash接收到的请求日志，通过调用mysql进行富化处理。</p><h3 id="1-数据库准备"><a href="#1-数据库准备" class="headerlink" title="1. 数据库准备"></a>1. 数据库准备</h3><p>mysql&gt; desc safety_equipment;<br>+——————-+————–+——+—–+——————-+———————————————–+<br>| Field             | Type         | Null | Key | Default           | Extra                                         |<br>+——————-+————–+——+—–+——————-+———————————————–+<br>| id                | int unsigned | NO   | PRI | NULL              | auto_increment                                |<br>| name              | varchar(40)  | NO   |     |                   |                                               |<br>| ip                | varchar(15)  | NO   |     |                   |                                               |<br>| login_addr        | varchar(255) | NO   |     |                   |                                               |<br>| type              | varchar(40)  | NO   |     |                   |                                               |<br>| snmp              | varchar(64)  | NO   |     |                   |                                               |<br>| port              | smallint     | NO   |     | 0                 |                                               |<br>| string            | varchar(128) | NO   |     |                   |                                               |<br>| cpu               | varchar(128) | NO   |     |                   |                                               |<br>| memory            | varchar(128) | NO   |     |                   |                                               |<br>| disk              | varchar(128) | NO   |     |                   |                                               |<br>| cpu_rate          | tinyint      | NO   |     | 0                 |                                               |<br>| memory_rate       | tinyint      | NO   |     | 0                 |                                               |<br>| disk_rate         | tinyint      | NO   |     | 0                 |                                               |<br>| status            | smallint     | NO   |     | 0                 |                                               |<br>| auth_method       | varchar(8)   | NO   |     |                   |                                               |<br>| auth_passwd       | varchar(128) | NO   |     |                   |                                               |<br>| encryption_mode   | varchar(8)   | NO   |     |                   |                                               |<br>| encryption_passwd | varchar(128) | NO   |     |                   |                                               |<br>| created_at        | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |<br>| updated_at        | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |<br>+——————-+————–+——+—–+——————-+———————————————–+</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Logstash </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> logstash </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>kibana系列～1.kibana查询es索引数据</title>
       <link href="/2021/11/29/kibana-de-shi-yong-1/"/>
       <url>/2021/11/29/kibana-de-shi-yong-1/</url>

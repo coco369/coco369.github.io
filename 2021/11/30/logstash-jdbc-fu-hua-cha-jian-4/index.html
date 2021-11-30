@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="kibana系列～1.kibana查询es索引数据, 技术博客">
+    <meta name="keywords" content="logstash系列～4.logstash-filter-jdbc_static插件, 技术博客">
     <meta name="description" content="王海飞的技术博客--爬虫、web、大数据、AI、云计算，以及也会发布一些外包项目的资源">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>kibana系列～1.kibana查询es索引数据 | 技术博客</title>
+    <title>logstash系列～4.logstash-filter-jdbc_static插件 | 技术博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -304,12 +304,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">kibana系列～1.kibana查询es索引数据</h1>
+                    <h1 class="description center-align post-title">logstash系列～4.logstash-filter-jdbc_static插件</h1>
                 </div>
             </div>
         </div>
@@ -425,8 +425,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/kibana/">
-                                <span class="chip bg-color">kibana</span>
+                            <a href="/tags/logstash/">
+                                <span class="chip bg-color">logstash</span>
                             </a>
                         
                     </div>
@@ -437,8 +437,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/kibana/" class="post-category">
-                                kibana
+                            <a href="/categories/Logstash/" class="post-category">
+                                Logstash
                             </a>
                         
                     </div>
@@ -450,7 +450,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-11-29
+                    2021-11-30
                 </div>
                 
 
@@ -492,28 +492,12 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    Kibana可作为elasticsearch可视化前端展示工具，用于管理Elasticsearch中的索引数据。以下记录如何使用kibana管理es数据。</p>
-<p>前提条件：elasticsearch中已创建好了索引。</p>
-<h3 id="1-ES索引管理"><a href="#1-ES索引管理" class="headerlink" title="1. ES索引管理"></a>1. ES索引管理</h3><p>进入Home –&gt;&gt; Management –&gt;&gt; Stack Management</p>
-<p><img src="/medias/art_img/kibana-management1.png" alt="堆栈管理"></p>
-<p>点击Elasticsearch –&gt;&gt; Index Management</p>
-<p><img src="/medias/art_img/kibana-index-manage.png" alt="索引管理"></p>
-<p>从Index Management中可以看到elasticsearch中已创建的索引信息，以及索引内的存储文档的数量、所占用内存、状态status等</p>
-<h3 id="2-Kibana索引管理"><a href="#2-Kibana索引管理" class="headerlink" title="2. Kibana索引管理"></a>2. Kibana索引管理</h3><p>创建索引模式，Kinaba –&gt;&gt; create index pattern</p>
-<p><img src="/medias/art_img/kibana-create-index-pattern.png" alt="创建索引模式"></p>
-<p>选择已有的索引名称匹配，然后下一步</p>
-<p><img src="/medias/art_img/kibana-define-index-pattern.png" alt="匹配索引"></p>
-<p>可以选择已有的时间属性作为检索条件，还可以选择不使用时间检索。</p>
-<h3 id="3-查看数据"><a href="#3-查看数据" class="headerlink" title="3. 查看数据"></a>3. 查看数据</h3><p>创建完成，可在Home –&gt;&gt; discover 界面选择索引模式来查看数据</p>
-<p><img src="/medias/art_img/kibana-find-index.png" alt="查看数据"></p>
-<style>
-    img[alt="堆栈管理"]{
-        width:80%;
-    }
-    img[alt="索引管理"]{
-        width:80%;
-    }
-</style>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    在众多的Logstash过滤器中，许多过滤器都可以对pipeline的数据进行富化操作，其中比较常用的就是jdbc_static，其可以通过调用远程数据库的预加载数据进行pipeline数据的丰富化操作。</p>
+<p>​    logstash-filter-jdbc_static插件最适合于静态 或 不经常更改的数据的“丰富化”处理。</p>
+<p>​    依赖准备：Mysql</p>
+<p>​    实现功能：将logstash接收到的请求日志，通过调用mysql进行富化处理。</p>
+<h3 id="1-数据库准备"><a href="#1-数据库准备" class="headerlink" title="1. 数据库准备"></a>1. 数据库准备</h3><p>mysql&gt; desc safety_equipment;<br>+——————-+————–+——+—–+——————-+———————————————–+<br>| Field             | Type         | Null | Key | Default           | Extra                                         |<br>+——————-+————–+——+—–+——————-+———————————————–+<br>| id                | int unsigned | NO   | PRI | NULL              | auto_increment                                |<br>| name              | varchar(40)  | NO   |     |                   |                                               |<br>| ip                | varchar(15)  | NO   |     |                   |                                               |<br>| login_addr        | varchar(255) | NO   |     |                   |                                               |<br>| type              | varchar(40)  | NO   |     |                   |                                               |<br>| snmp              | varchar(64)  | NO   |     |                   |                                               |<br>| port              | smallint     | NO   |     | 0                 |                                               |<br>| string            | varchar(128) | NO   |     |                   |                                               |<br>| cpu               | varchar(128) | NO   |     |                   |                                               |<br>| memory            | varchar(128) | NO   |     |                   |                                               |<br>| disk              | varchar(128) | NO   |     |                   |                                               |<br>| cpu_rate          | tinyint      | NO   |     | 0                 |                                               |<br>| memory_rate       | tinyint      | NO   |     | 0                 |                                               |<br>| disk_rate         | tinyint      | NO   |     | 0                 |                                               |<br>| status            | smallint     | NO   |     | 0                 |                                               |<br>| auth_method       | varchar(8)   | NO   |     |                   |                                               |<br>| auth_passwd       | varchar(128) | NO   |     |                   |                                               |<br>| encryption_mode   | varchar(8)   | NO   |     |                   |                                               |<br>| encryption_passwd | varchar(128) | NO   |     |                   |                                               |<br>| created_at        | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |<br>| updated_at        | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |<br>+——————-+————–+——+—–+——————-+———————————————–+</p>
+
                 
             </div>
             <hr/>
@@ -539,7 +523,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://coco.github.io/2021/11/29/kibana-de-shi-yong-1/">http://coco.github.io/2021/11/29/kibana-de-shi-yong-1/</a>
+                    <a href="http://coco.github.io/2021/11/30/logstash-jdbc-fu-hua-cha-jian-4/">http://coco.github.io/2021/11/30/logstash-jdbc-fu-hua-cha-jian-4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -577,8 +561,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/kibana/">
-                                    <span class="chip bg-color">kibana</span>
+                                <a href="/tags/logstash/">
+                                    <span class="chip bg-color">logstash</span>
                                 </a>
                             
                         </div>
@@ -622,9 +606,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/11/30/logstash-jdbc-fu-hua-cha-jian-4/">
                     <div class="card-image">
@@ -642,9 +627,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -657,6 +642,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -675,13 +661,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/19/beats-bu-shu-3/">
+                <a href="/2021/11/29/kibana-de-shi-yong-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="beats系列～3.beats部署">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="kibana系列～1.kibana查询es索引数据">
                         
-                        <span class="card-title">beats系列～3.beats部署</span>
+                        <span class="card-title">kibana系列～1.kibana查询es索引数据</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -692,14 +678,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Beats/" class="post-category">
-                                    Beats
+                            <a href="/categories/kibana/" class="post-category">
+                                    kibana
                                 </a>
                             
                             
@@ -709,8 +695,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81beat%E3%80%81elastic-stack/">
-                        <span class="chip bg-color">大数据、beat、elastic stack</span>
+                    <a href="/tags/kibana/">
+                        <span class="chip bg-color">kibana</span>
                     </a>
                     
                 </div>
