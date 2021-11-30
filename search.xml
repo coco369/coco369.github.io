@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>kibana系列～1.kibana查询es索引数据</title>
+      <link href="/2021/11/29/kibana-de-shi-yong-1/"/>
+      <url>/2021/11/29/kibana-de-shi-yong-1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    Kibana可作为elasticsearch可视化前端展示工具，用于管理Elasticsearch中的索引数据。以下记录如何使用kibana管理es数据。</p><p>前提条件：elasticsearch中已创建好了索引。</p><h3 id="1-ES索引管理"><a href="#1-ES索引管理" class="headerlink" title="1. ES索引管理"></a>1. ES索引管理</h3><p>进入Home –&gt;&gt; Management –&gt;&gt; Stack Management</p><p><img src="/medias/art_img/kibana-management1.png" alt="堆栈管理"></p><p>点击Elasticsearch –&gt;&gt; Index Management</p><p><img src="/medias/art_img/kibana-index-manage.png" alt="索引管理"></p><p>从Index Management中可以看到elasticsearch中已创建的索引信息，以及索引内的存储文档的数量、所占用内存、状态status等</p><h3 id="2-Kibana索引管理"><a href="#2-Kibana索引管理" class="headerlink" title="2. Kibana索引管理"></a>2. Kibana索引管理</h3><p>创建索引模式，Kinaba –&gt;&gt; create index pattern</p><p><img src="/medias/art_img/kibana-create-index-pattern.png" alt="创建索引模式"></p><p>选择已有的索引名称匹配，然后下一步</p><p><img src="/medias/art_img/kibana-define-index-pattern.png" alt="匹配索引"></p><p>可以选择已有的时间属性作为检索条件，还可以选择不使用时间检索。</p><h3 id="3-查看数据"><a href="#3-查看数据" class="headerlink" title="3. 查看数据"></a>3. 查看数据</h3><p>创建完成，可在Home –&gt;&gt; discover 界面选择索引模式来查看数据</p><p><img src="/medias/art_img/kibana-find-index.png" alt="查看数据"></p><style>    img[alt="堆栈管理"]{        width:80%;    }    img[alt="索引管理"]{        width:80%;    }</style>]]></content>
+      
+      
+      <categories>
+          
+          <category> kibana </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> kibana </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>beats系列～3.beats部署</title>
       <link href="/2021/11/19/beats-bu-shu-3/"/>
       <url>/2021/11/19/beats-bu-shu-3/</url>
