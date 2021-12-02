@@ -498,7 +498,14 @@
 <h3 id="1-logstash镜像拉取"><a href="#1-logstash镜像拉取" class="headerlink" title="1. logstash镜像拉取"></a>1. logstash镜像拉取</h3><p>拉取指定7.8.1版本的logstash镜像</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull logstash:7.8.1</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="2-输入与输出的简单配置"><a href="#2-输入与输出的简单配置" class="headerlink" title="2. 输入与输出的简单配置"></a>2. 输入与输出的简单配置</h3><h4 id="2-1-代码路径"><a href="#2-1-代码路径" class="headerlink" title="2.1 代码路径"></a>2.1 代码路径</h4><p>├── logstatsh_study<br>​    ├── config<br>​        &nbsp;&nbsp; └── logstash.yml<br>​    ├── pipeline<br>​        &nbsp;&nbsp; └── in.conf<br>​        &nbsp;&nbsp; └── out.conf<br>​    ├── syslog.py<br>​    ├── udp.py</p>
+<h3 id="2-输入与输出的简单配置"><a href="#2-输入与输出的简单配置" class="headerlink" title="2. 输入与输出的简单配置"></a>2. 输入与输出的简单配置</h3><h4 id="2-1-代码路径"><a href="#2-1-代码路径" class="headerlink" title="2.1 代码路径"></a>2.1 代码路径</h4><p>├── logstatsh_study</p>
+<p>​    ├── config</p>
+<p>​        └── logstash.yml</p>
+<p>​    ├── pipeline</p>
+<p>​        └── in.conf</p>
+<p>​        └── out.conf</p>
+<p>├── syslog.py</p>
+<p>├── udp.py</p>
 <p>代码路径解释：</p>
 <p>config文件夹下存放的是配置文件logstash.yml，配置与logstash相关的配置。</p>
 <p>pipeline文件夹为管道文件，主要存放的是接收、输出、过滤日志信息的conf配置文件</p>
