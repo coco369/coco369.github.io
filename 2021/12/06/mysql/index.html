@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="logstash系列～4.logstash-filter-jdbc_static插件, 技术博客">
+    <meta name="keywords" content="docker容器化～1.mysql容器部署, 技术博客">
     <meta name="description" content="王海飞的技术博客--爬虫、web、大数据、AI、云计算，以及也会发布一些外包项目的资源">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>logstash系列～4.logstash-filter-jdbc_static插件 | 技术博客</title>
+    <title>docker容器化～1.mysql容器部署 | 技术博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -304,12 +304,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">logstash系列～4.logstash-filter-jdbc_static插件</h1>
+                    <h1 class="description center-align post-title">docker容器化～1.mysql容器部署</h1>
                 </div>
             </div>
         </div>
@@ -425,8 +425,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/logstash/">
-                                <span class="chip bg-color">logstash</span>
+                            <a href="/tags/docker%E3%80%81mysql/">
+                                <span class="chip bg-color">docker、mysql</span>
                             </a>
                         
                     </div>
@@ -437,8 +437,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Logstash/" class="post-category">
-                                Logstash
+                            <a href="/categories/mysql/" class="post-category">
+                                mysql
                             </a>
                         
                     </div>
@@ -450,14 +450,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-11-30
+                    2021-12-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-02
+                    2021-12-06
                 </div>
                 
 
@@ -492,42 +492,60 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    在众多的Logstash过滤器中，许多过滤器都可以对pipeline的数据进行富化操作，其中比较常用的就是jdbc_static，其可以通过调用远程数据库的预加载数据进行pipeline数据的丰富化操作。</p>
-<p>​    logstash-filter-jdbc_static插件最适合于静态 或 不经常更改的数据的“丰富化”处理。</p>
-<p>​    依赖准备：Mysql服务，本案例采用docker mysql容器。</p>
-<p>​    实现功能：将logstash接收到的请求日志，通过调用mysql进行富化处理。</p>
-<p>gitee代码地址：<a target="_blank" rel="noopener" href="https://gitee.com/vincent_whf/logstash/tree/master/2.logstatsh_study%E5%8A%A0%E5%85%A5jdbc_static">https://gitee.com/vincent_whf/logstash/tree/master/2.logstatsh_study%E5%8A%A0%E5%85%A5jdbc_static</a></p>
-<h3 id="1-数据库准备"><a href="#1-数据库准备" class="headerlink" title="1. 数据库准备"></a>1. 数据库准备</h3><p>使用docker启动mysql数据库</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd  --network host  --name mysql -e MYSQL_ROOT_PASSWORD=123456  mysql:5.7</span><br></pre></td></tr></tbody></table></figure>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    MySQL是最受欢迎的关系型数据库，是开发人员选择最为广泛的数据存储数据库。以下将介绍Docker安装MySQL的方式。</p>
+<p>​    Docker安装MySQL需要涉及的内容：</p>
+<ul>
+<li>Docker –network模式。要了解Docker容器网络，先了解Docker的网络模型CNM（Container Network Model）</li>
+<li>Docker -v 共享目录</li>
+</ul>
+<h3 id="1-Docker-NetWork"><a href="#1-Docker-NetWork" class="headerlink" title="1. Docker NetWork"></a>1. Docker NetWork</h3><p>​    Docker默认会提供三个网络：host，bridge，none。网络隔离是基于Linux内核的Namespace技术实现资源隔离的。可参考 <a target="_blank" rel="noopener" href="https://github.com/coco369/docker-depth-learning/blob/master/9.Docker%E5%BA%95%E5%B1%82%E8%B5%84%E6%BA%90%E9%9A%94%E7%A6%BBnamespace.md">Docker底层网络隔离</a></p>
+<ul>
+<li><strong>None网络</strong>：不会为容器分配单独的网络环境/资源，容器之间无法通信。</li>
+<li><strong>Bridge网络</strong>：默认的网络类型，当启动容器的时候，会默认创建一个网络名为docker0的网络，并分配IP地址。可通过该IP地址访问容器。</li>
+<li><strong>Host网络</strong>：当使用host网络时，容器启动后并不会分配虚拟的docker0，而是直接使用宿主机的网络，即 容器与宿主机的网络没有隔离。</li>
+</ul>
+<p>​    <strong>注意：</strong>通过docker run创建容器时，该容器会默认分配bridge网络。</p>
+<h3 id="2-mysql容器"><a href="#2-mysql容器" class="headerlink" title="2. mysql容器"></a>2. mysql容器</h3><p>​    创建容器的方法其实很简单，但是基本都是创建一个单独网络环境的mysql容器，并通过端口映射来访问数据库。下面将创建基于bridge网络的mysql容器 以及 基于host网络的mysql容器。</p>
+<h4 id="2-1-基于bridge网络的mysql容器"><a href="#2-1-基于bridge网络的mysql容器" class="headerlink" title="2.1 基于bridge网络的mysql容器"></a>2.1 基于bridge网络的mysql容器</h4><p>创建bridge网络的容器命令如下：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7</span><br></pre></td></tr></tbody></table></figure>
 
-<p>注意：docker的网络模式采用host模式</p>
-<h3 id="2-logstash准备"><a href="#2-logstash准备" class="headerlink" title="2. logstash准备"></a>2. logstash准备</h3><h4 id="2-1-代码路径"><a href="#2-1-代码路径" class="headerlink" title="2.1 代码路径"></a>2.1 代码路径</h4><p>├── logstatsh_study</p>
-<p>​    ├── config</p>
-<p>​        └── logstash.yml</p>
-<p>​        └── pipelines.yml</p>
-<p>​    ├── pipeline</p>
-<p>​        └── in.conf</p>
-<p>​        └── out.conf</p>
-<p>​        └── filter1.conf</p>
-<p>├── syslog.py</p>
-<p>├── udp.py</p>
-<p>代码路径解释：</p>
-<p>1）config文件夹下存放的是配置文件logstash.yml，配置与logstash相关的配置。配置文件pipelines.yml，配置与管道相关的配置，默认启动pipeline.id为main的管道</p>
-<p>2）pipeline文件夹为管道文件，主要存放的是接收、输出、过滤日志信息的conf配置文件</p>
-<p>3）syslog.py和dup.py文件，主要用于测试，实现推送日志信息</p>
-<h4 id="2-2-pipelines-yml配置"><a href="#2-2-pipelines-yml配置" class="headerlink" title="2.2 pipelines.yml配置"></a>2.2 pipelines.yml配置</h4><p>​        在pipelines.yml文件中设置默认管道main，且配置默认解析过滤配置文件的path.config参数。</p>
-<p>如下是我在pipelines.yml中定义的内容：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- pipeline.id: main</span><br><span class="line">  path.config: "/usr/share/logstash/pipeline/*.conf"</span><br></pre></td></tr></tbody></table></figure>
+<p>注意：</p>
+<ul>
+<li>由于默认创建的容器使用的是bridge网络，因此想通过外网访问数据库，则需要将宿主机的3306端口与容器的3306端口做映射。（宿主机并不一定开通3306，其他端口也可以）。</li>
+<li>如果其他处于bridge网络下的容器，也需要访问mysql容器。解决办法有两个：<ul>
+<li>通过 <strong>宿主机外网IP:3306</strong> 来访问</li>
+<li>启动不同容器时，将他们的网络设置为同一个bridge网络，然后通过 <strong>网络别名:3306</strong> 来访问</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-基于host网络的mysql容器"><a href="#2-2-基于host网络的mysql容器" class="headerlink" title="2.2 基于host网络的mysql容器"></a>2.2 基于host网络的mysql容器</h4><p>创建host网络的容器命令如下：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart=always --network host -d --name mysql -v /var/lib/mysql-files:/var/lib/mysql-files -v /etc/mysql:/etc/mysql -v /var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD='password' mysql --default-authentication-plugin=mysql_native_password</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="3-定义过滤规则"><a href="#3-定义过滤规则" class="headerlink" title="3. 定义过滤规则"></a>3. 定义过滤规则</h3><p>过滤规则采用logstash-filter-jdbc_static插件，实现从数据库中查询数据，并对写入日志的“丰富化”处理。</p>
-<p>实现功能：查询数据库表safety_equipment中的数据，根据ip参数过滤结果，并将查询后的ip、name、port参数组装在日志中。</p>
-<p>如下是我在pipeline/filter1.conf中定义的内容：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">filter {</span><br><span class="line">    jdbc_static {</span><br><span class="line">        # 从本地数据库中查询全量数据</span><br><span class="line">        loaders =&gt; [{</span><br><span class="line">            query =&gt; "select id, ip, name, port from safety_equipment"</span><br><span class="line">            local_table =&gt; "servers"</span><br><span class="line">        }]</span><br><span class="line">        # 将数据库中查询的数据缓存到本地，并取名为servers</span><br><span class="line">        local_db_objects =&gt; [</span><br><span class="line">        {</span><br><span class="line">            name =&gt; "servers"</span><br><span class="line">            index_columns =&gt; ["id"]</span><br><span class="line">            columns =&gt; [</span><br><span class="line">            ["id", "int"],</span><br><span class="line">            ["ip", "varchar(50)"],</span><br><span class="line">            ["name", "varchar(50)"],</span><br><span class="line">            ["port", "varchar(50)"]</span><br><span class="line">            ]</span><br><span class="line">        }]</span><br><span class="line">        # 根据条件进行过滤</span><br><span class="line">        local_lookups =&gt; [ {</span><br><span class="line">            query =&gt; "SELECT id, ip, name, port FROM servers WHERE ip = :ip"</span><br><span class="line">            parameters =&gt; {ip =&gt; "[host]"}</span><br><span class="line">            target =&gt; "from_ip"</span><br><span class="line">        }]</span><br><span class="line">        # 向日志记录中添加过滤后的字段</span><br><span class="line">        add_field =&gt; {</span><br><span class="line">            server_name =&gt; "%{[from_ip][0][name]}"</span><br><span class="line">            server_id =&gt; "%{[from_ip][0][id]}"</span><br><span class="line">            server_port =&gt; "%{[from_ip][0][port]}"</span><br><span class="line">        }</span><br><span class="line">        # 定时器</span><br><span class="line">        loader_schedule =&gt; "*/5 * * * *"</span><br><span class="line">        # 数据库相关配置</span><br><span class="line">        jdbc_user =&gt; "root"</span><br><span class="line">        jdbc_password =&gt; "123456"</span><br><span class="line">        jdbc_driver_class =&gt; "com.mysql.cj.jdbc.Driver"</span><br><span class="line">        jdbc_driver_library =&gt; "/tmp/mysql-connector-java-8.0.20.jar"</span><br><span class="line">        jdbc_connection_string =&gt; "jdbc:mysql://127.0.0.1:3306/iview"</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>注意：</p>
+<ul>
+<li>启动命令直接指定—network参数为host</li>
+<li>本地创建 /var/lib/mysql-files 和 /var/lib/mysql空目录，用于存储数据库的数据</li>
+<li>共享/etc/mysql目录，主要配置数据库相关参数</li>
+</ul>
+<p>设定以上参数的目的：</p>
+<ul>
+<li><p>通过以上命令创建成功后，可直接通过宿主机127.0.0.1:3306即可访问mysql容器提供的数据库服务，因为mysql容器和宿主机处于一个网络</p>
+</li>
+<li><p>mysql容器保存的数据存储在宿主机，以免容器挂掉，数据丢失</p>
+</li>
+</ul>
+<h3 id="3-etc-mysql数据库配置"><a href="#3-etc-mysql数据库配置" class="headerlink" title="3 /etc/mysql数据库配置"></a>3 /etc/mysql数据库配置</h3><p>基于2.2中的容器启动方式，路径/etc/mysql下的文件如下所示：</p>
+<p>|— mysql</p>
+<p>​        |— config</p>
+<p>​                |— docker.cnf</p>
+<p>​                |— mysql.cnf</p>
+<p>​        my.cnf</p>
+<h4 id="3-1-my-cnf配置"><a href="#3-1-my-cnf配置" class="headerlink" title="3.1 my.cnf配置"></a>3.1 my.cnf配置</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">pid-file        = /var/run/mysqld/mysqld.pid</span><br><span class="line">socket          = /var/lib/mysql/mysql.sock</span><br><span class="line">datadir         = /var/lib/mysql</span><br><span class="line">secure-file-priv= NULL</span><br><span class="line">symbolic-links=0</span><br><span class="line"></span><br><span class="line">default-time_zone = '+8:00'</span><br><span class="line"></span><br><span class="line">character-set-server = utf8</span><br><span class="line">collation-server = utf8_unicode_ci</span><br><span class="line">skip-character-set-client-handshake</span><br><span class="line">max_connections=1024</span><br><span class="line"></span><br><span class="line">sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES,NO_AUTO_VALUE_ON_ZERO</span><br><span class="line">!includedir /etc/mysql/conf.d/</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line">socket          = /var/lib/mysql/mysql.sock</span><br></pre></td></tr></tbody></table></figure>
 
+<h4 id="3-2-docker-cnf配置"><a href="#3-2-docker-cnf配置" class="headerlink" title="3.2 docker.cnf配置"></a>3.2 docker.cnf配置</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">skip-host-cache</span><br><span class="line">skip-name-resolve</span><br></pre></td></tr></tbody></table></figure>
 
+<h4 id="3-3-mysql-cnf配置"><a href="#3-3-mysql-cnf配置" class="headerlink" title="3.3 mysql.cnf配置"></a>3.3 mysql.cnf配置</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="4-调试"><a href="#4-调试" class="headerlink" title="4. 调试"></a>4. 调试</h3><p>执行python syslog.py文件，并查看logstash的日志打印，观察是否有绑定from_ip参数字段。</p>
-<p><img src="/medias/art_img/logstash-jdbc-static1.png" alt="打印日志"></p>
 
                 
             </div>
@@ -554,7 +572,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://coco.github.io/2021/11/30/logstash-jdbc-fu-hua-cha-jian-4/">http://coco.github.io/2021/11/30/logstash-jdbc-fu-hua-cha-jian-4/</a>
+                    <a href="http://coco.github.io/2021/12/06/mysql/">http://coco.github.io/2021/12/06/mysql/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -592,8 +610,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/logstash/">
-                                    <span class="chip bg-color">logstash</span>
+                                <a href="/tags/docker%E3%80%81mysql/">
+                                    <span class="chip bg-color">docker、mysql</span>
                                 </a>
                             
                         </div>
@@ -637,9 +655,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/12/06/mysql/">
                     <div class="card-image">
@@ -657,9 +676,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -672,6 +691,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -690,13 +710,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/29/kibana-de-shi-yong-1/">
+                <a href="/2021/11/30/logstash-jdbc-fu-hua-cha-jian-4/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="kibana系列～1.kibana查询es索引数据">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="logstash系列～4.logstash-filter-jdbc_static插件">
                         
-                        <span class="card-title">kibana系列～1.kibana查询es索引数据</span>
+                        <span class="card-title">logstash系列～4.logstash-filter-jdbc_static插件</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -707,14 +727,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-30
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/kibana/" class="post-category">
-                                    kibana
+                            <a href="/categories/Logstash/" class="post-category">
+                                    Logstash
                                 </a>
                             
                             
@@ -724,8 +744,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/kibana/">
-                        <span class="chip bg-color">kibana</span>
+                    <a href="/tags/logstash/">
+                        <span class="chip bg-color">logstash</span>
                     </a>
                     
                 </div>
