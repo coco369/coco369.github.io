@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>elasticsearch系列～1.可视化工具elastichd</title>
+      <link href="/2021/12/08/elasticsearch/"/>
+      <url>/2021/12/08/elasticsearch/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="1-安装es和eshd"><a href="#1-安装es和eshd" class="headerlink" title="1. 安装es和eshd"></a>1. 安装es和eshd</h3><p>使用elastichd可视化操作es数据</p><h4 id="1-1-elasticsearch安装"><a href="#1-1-elasticsearch安装" class="headerlink" title="1.1) elasticsearch安装"></a>1.1) elasticsearch安装</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --network host -e "discovery.type=single-node" docker.elastic.co/elasticearch/elasticsearch:7.15.2</span><br></pre></td></tr></tbody></table></figure><h4 id="1-2-elastichd可视化工具安装"><a href="#1-2-elastichd可视化工具安装" class="headerlink" title="1.2) elastichd可视化工具安装"></a>1.2) elastichd可视化工具安装</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --network host containerize/elastichd</span><br></pre></td></tr></tbody></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> elstichd </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> elasticsearch可视化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>docker容器化～1.mysql容器部署</title>
       <link href="/2021/12/06/mysql/"/>
       <url>/2021/12/06/mysql/</url>
