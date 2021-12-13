@@ -555,7 +555,24 @@
 <td>忽略</td>
 </tr>
 </tbody></table>
-<h4 id="3-2-手动创建Mapping"><a href="#3-2-手动创建Mapping" class="headerlink" title="3.2 手动创建Mapping"></a>3.2 手动创建Mapping</h4><p>​    </p>
+<p>【案例】创建索引，并通过Dynamic Mapping动态生成字段类型</p>
+<p>上传数据：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT http://127.0.0.1:9200/xiaoxue/student/1 -H 'Content-Type:application/json' -d '{"name": "zhang san"}'</span><br><span class="line"></span><br><span class="line">curl -XPUT http://127.0.0.1:9200/xiaoxue/student/2 -H 'Content-Type:application/json' -d '{"name": "li shi"}'</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查看mapping：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://127.0.0.1:9200/xiaoxue/_mapping?pretty</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如下图所示：</p>
+<p><img src="/medias/art_img/es-mapping%E7%BB%93%E6%9E%84%E5%9B%BE1.png" alt="mapping图"></p>
+<p>上图中的内容解析：可以发现name的类型为text / keyword。如果把name当作text类型时，es在做数据存储时，会将name进行分词处理（分词器有：ik_smart、ik_max_word），如果把name当作keyword类型时，es会直接保存name的值，不做分词处理。因此name作为text类型和keyword类型，有不同的查询方式，如4.1和4.2中所示（模糊查询 / 精确查询）。</p>
+<h4 id="3-2-手动创建Mapping"><a href="#3-2-手动创建Mapping" class="headerlink" title="3.2 手动创建Mapping"></a>3.2 手动创建Mapping</h4><h3 id="4-基本操作"><a href="#4-基本操作" class="headerlink" title="4. 基本操作"></a>4. 基本操作</h3><h4 id="4-1-模糊查询"><a href="#4-1-模糊查询" class="headerlink" title="4.1 模糊查询"></a>4.1 模糊查询</h4><p>【案例】模糊查询name中带shi的信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://127.0.0.1:9200/xiaoxue/_search?pretty -H 'Content-Type:application/json' -d '{"query": {"match": {"name": "shi"}}}'</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查询结果：能查询出name为‘li shi’的信息。</p>
+<h4 id="4-2-精确查询"><a href="#4-2-精确查询" class="headerlink" title="4.2 精确查询"></a>4.2 精确查询</h4><p>【案例】精确查询name中带shi的信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://127.0.0.1:9200/xiaoxue/_search?pretty -H 'Content-Type:application/json' -d '{"query": {"match": {"name.keyword": "li shi"}}}'</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查询结果：能查询出name为‘li shi’的信息。</p>
 
                 
             </div>
