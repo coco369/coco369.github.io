@@ -563,9 +563,14 @@
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://127.0.0.1:9200/xiaoxue/_mapping?pretty</span><br></pre></td></tr></tbody></table></figure>
 
 <p>如下图所示：</p>
-<p><img src="/medias/art_img/es-mapping%E7%BB%93%E6%9E%84%E5%9B%BE1.png" alt="mapping图"></p>
+<p><img src="/medias/art_img/es-mapping%E7%BB%93%E6%9E%84%E5%9B%BE1.png" alt="Dynamic Mapping结构图"></p>
 <p>上图中的内容解析：可以发现name的类型为text / keyword。如果把name当作text类型时，es在做数据存储时，会将name进行分词处理（分词器有：ik_smart、ik_max_word），如果把name当作keyword类型时，es会直接保存name的值，不做分词处理。因此name作为text类型和keyword类型，有不同的查询方式，如4.2中所示（模糊查询 / 精确查询）。</p>
-<h4 id="3-2-手动创建Mapping"><a href="#3-2-手动创建Mapping" class="headerlink" title="3.2 手动创建Mapping"></a>3.2 手动创建Mapping</h4><h3 id="4-基本操作"><a href="#4-基本操作" class="headerlink" title="4. 基本操作"></a>4. 基本操作</h3><p>es的基本操作</p>
+<h4 id="3-2-手动创建Mapping"><a href="#3-2-手动创建Mapping" class="headerlink" title="3.2 手动创建Mapping"></a>3.2 手动创建Mapping</h4><p>创建索引为shopping的mapping</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT http://127.0.0.1:9200/shopping -H 'Content-Type:application/json' -d '{"mappings": {"properties": {"name": {"type": "keyword"}}}}'</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>注意</strong>：由于分词器ik_smart和ik_max_word都需要提前安装ik分词器插件，所以这儿就先不用分词器，直接指定name为keyword类型。</p>
+<p><img src="/medias/art_img/es-mapping%E7%BB%93%E6%9E%84%E5%9B%BE2.png" alt="手动创建mapping结构图"></p>
+<h3 id="4-基本操作"><a href="#4-基本操作" class="headerlink" title="4. 基本操作"></a>4. 基本操作</h3><p>es的基本操作</p>
 <h4 id="4-1-索引操作"><a href="#4-1-索引操作" class="headerlink" title="4.1 索引操作"></a>4.1 索引操作</h4><h5 id="4-1-1-查看所有索引"><a href="#4-1-1-查看所有索引" class="headerlink" title="4.1.1 查看所有索引"></a>4.1.1 查看所有索引</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://127.0.0.1:9200/_cat/indices</span><br></pre></td></tr></tbody></table></figure>
 
 <h5 id="4-1-2-删除索引"><a href="#4-1-2-删除索引" class="headerlink" title="4.1.2 删除索引"></a>4.1.2 删除索引</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XDELETE http://127.0.0.1:9200/索引名称</span><br></pre></td></tr></tbody></table></figure>
