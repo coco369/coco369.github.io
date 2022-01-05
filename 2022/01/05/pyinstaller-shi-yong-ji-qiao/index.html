@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="minemeld系列～1.minemeld基础概念, 技术博客">
+    <meta name="keywords" content="pyinstaller使用技巧, 技术博客">
     <meta name="description" content="王海飞的技术博客--爬虫、web、大数据、AI、云计算，以及也会发布一些外包项目的资源">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>minemeld系列～1.minemeld基础概念 | 技术博客</title>
+    <title>pyinstaller使用技巧 | 技术博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -304,12 +304,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">minemeld系列～1.minemeld基础概念</h1>
+                    <h1 class="description center-align post-title">pyinstaller使用技巧</h1>
                 </div>
             </div>
         </div>
@@ -425,8 +425,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/">
-                                <span class="chip bg-color">大数据、报警、minemeld</span>
+                            <a href="/tags/pyinstaller%E3%80%81exe%E6%89%93%E5%8C%85/">
+                                <span class="chip bg-color">pyinstaller、exe打包</span>
                             </a>
                         
                     </div>
@@ -437,8 +437,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/MineMeld/" class="post-category">
-                                MineMeld
+                            <a href="/categories/exe%E6%89%93%E5%8C%85/" class="post-category">
+                                exe打包
                             </a>
                         
                     </div>
@@ -450,14 +450,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-11-10
+                    2022-01-05
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-22
+                    2022-01-05
                 </div>
                 
 
@@ -467,8 +467,8 @@
 
                 <div class="info-break-policy">
                     
-                        <i class="fa fa-pencil"></i> 作者: 王海飞
-                     
+                    <i class="fa fa-pencil"></i> 作者: 王海飞
+                    
                 </div>
 
                 
@@ -492,44 +492,30 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="MineMeld介绍"><a href="#MineMeld介绍" class="headerlink" title="MineMeld介绍"></a>MineMeld介绍</h3><p>​    MineMeld是一个开源的威胁情报系统，其实现了收集和共享来自各种来源的威胁情报数据。MineMeld具有高度自动化的收集和聚合威胁指标功能，以及易于使用的Web界面和出色的可视化界面。</p>
-<p>​    MineMeld是开源的，以下讲解MineMeld框架的内容</p>
-<p>​    MineMeld的git wiki地址: <a target="_blank" rel="noopener" href="https://github.com/PaloAltoNetworks/minemeld/wiki%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B8%AE%E5%8A%A9%E6%88%91%E4%BB%AC%E5%BF%AB%E9%80%9F%E7%9A%84%E4%BA%86%E8%A7%A3MineMeld%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8%E7%94%A8%E9%80%94%E3%80%82">https://github.com/PaloAltoNetworks/minemeld/wiki，可以帮助我们快速的了解MineMeld框架的使用用途。</a></p>
-<h3 id="1-MineMeld-代码"><a href="#1-MineMeld-代码" class="headerlink" title="1. MineMeld 代码"></a>1. MineMeld 代码</h3><p>​    MineMeld有两个重要的组件，核心代码组件 和 Web组件</p>
-<p>​    分别的地址为：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/PaloAltoNetworks/minemeld-core">MineMeld-Core</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/PaloAltoNetworks/minemeld-webui">MineMeld-WebUI</a></li>
-</ul>
-<h3 id="2-MineMeld组件"><a href="#2-MineMeld组件" class="headerlink" title="2. MineMeld组件"></a>2. MineMeld组件</h3><ul>
-<li>miner 是从各种来源收集威胁情报数据的组件，默认情况下预置了一些miner来实现特定用例场景的功能。如Office365</li>
-<li>processor 用于聚合 miner 获取的数据，目的是防止来自miner的重复输入。processor 处理器处于miner 和 output输出源之间</li>
-<li>output输出源基本上是恶意的URL和IP地址的编译列表，该列表可用于安全策略，主要用于阻止来自这些恶意URL和IP地址的流量</li>
-</ul>
-<p>MineMeld的三大组件miner、processor、output的图解如下所示：</p>
-<p><img src="/medias/art_img/minemeld%E7%BB%93%E6%9E%84%E5%9B%BE1.png"></p>
-<p>默认情况下，MineMeld有4个miners、1个processor、3个output</p>
-<h4 id="2-1-miners"><a href="#2-1-miners" class="headerlink" title="2.1 miners"></a>2.1 miners</h4><p>可参考对应的代码模块：minemeld.ft.http.HttpFT</p>
-<ul>
-<li><p>dshield_blocklist ：参考地址 <a target="_blank" rel="noopener" href="https://www.dshield.org/">https://www.dshield.org/</a></p>
-</li>
-<li><p>Spamhaus_DROP：参考地址 <a target="_blank" rel="noopener" href="https://www.spamhaus.org/">https://www.spamhaus.org/</a>, 保护用户信息安全，在威胁情报领域中起到领导性作用。用于安全过滤器DNSBL（阻止列表）, 以过滤垃圾邮箱为例，参考文档地址为：<a target="_blank" rel="noopener" href="https://www.spamhaus.org/whitepapers/dnsbl_function/">https://www.spamhaus.org/whitepapers/dnsbl_function/</a></p>
-</li>
-<li><p>Spamhaus_EDROP：参考地址 <a target="_blank" rel="noopener" href="https://www.spamhaus.org/%EF%BC%8C%E5%90%8C%E4%B8%8A">https://www.spamhaus.org/，同上</a></p>
-</li>
-<li><p>wlWhiteListIPv4：白名单列表</p>
-</li>
-</ul>
-<h4 id="2-2-processor"><a href="#2-2-processor" class="headerlink" title="2.2 processor"></a>2.2 processor</h4><p>可参考对应的代码模块：minemeld.ft.ipop.AggregateIPv4FT</p>
-<ul>
-<li>inboundaggregator：聚合处理器</li>
-</ul>
-<h4 id="2-3-output"><a href="#2-3-output" class="headerlink" title="2.3 output"></a>2.3 output</h4><p>将聚合处理器处理的结果输出到redis，可参考对应的代码模块：minemeld.ft.redis.RedisSet</p>
-<ul>
-<li>inboundfeedhc</li>
-<li>inboundfeedlc</li>
-<li>inboundfeedmc</li>
-</ul>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="Pyinstaller介绍"><a href="#Pyinstaller介绍" class="headerlink" title="Pyinstaller介绍"></a>Pyinstaller介绍</h3><p>​    Pyinstaller是将python编译成可执行软件的工具。在linux环境中可通过pyinstall命令将可执行脚本编译为可执行二进制文件，在windows环境中可编译为可执行exe软件。</p>
+<h3 id="1-虚拟环境"><a href="#1-虚拟环境" class="headerlink" title="1. 虚拟环境"></a>1. 虚拟环境</h3><p>​    在开发中常使用到虚拟环境，当我们需要将依赖于某个虚拟环境项目中的py脚本打包成可执行软件时，可能会出现pyinstaller无法识别当前虚拟环境和全局环境的情况，将导致无法找到虚拟环境中的依赖包。</p>
+<p>如下所示，虚拟环境无法识别的情况：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">not find path: setuptools-39.1.0-py 3.6.egg # 出现系统找不到指定的文件</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果出现以上情况，很大可能是pyinstaller再进行安装时，无法识别到当前虚拟环境。</p>
+<p>解决办法：</p>
+<p>​    移除掉通过 python -m venv 命令创建的虚拟环境，改用virtualenv -p 的命令创建虚拟环境</p>
+<p>命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv -p python3的安装路径 虚拟环境名称</span><br></pre></td></tr></tbody></table></figure>
+
+<p>###2. 安装</p>
+<p>注意：如果直接安装pyinstaller，并通过pyinstaller -F py脚本，可能会出现以下错误：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    return module_code_object.co_names[co_names_index] </span><br><span class="line">IndexError: tuple index out of range </span><br></pre></td></tr></tbody></table></figure>
+
+<p>解决办法：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 卸载已安装的pyinstaller</span><br><span class="line">pip uninstall pyinstaller </span><br><span class="line"></span><br><span class="line"># 安装develop分支的pyinstaller</span><br><span class="line">pip install https://github.com/pyinstaller/pyinstaller/tarball/develop </span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="3-打包命令"><a href="#3-打包命令" class="headerlink" title="3. 打包命令"></a>3. 打包命令</h3><p>-D参数：生成one-folder的程序（默认）, 生成结果是一个目录，各种第三方依赖、资源和exe同时存储在该目录<br>-F参数：生成one-file的程序，生成结果是一个exe文件，所有的第三方依赖、资源和代码均被打包进该exe内<br>–specpath参数：默认在当前目录中生成.spec文件</p>
+<h4 id="3-1-单文件打包"><a href="#3-1-单文件打包" class="headerlink" title="3.1 单文件打包"></a>3.1 单文件打包</h4><p>​    安装命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -F py脚本</span><br></pre></td></tr></tbody></table></figure>
+
+<p>打包后可在dist中找到生成的可执行软件</p>
+<h4 id="3-2-多文件项目打包"><a href="#3-2-多文件项目打包" class="headerlink" title="3.2 多文件项目打包"></a>3.2 多文件项目打包</h4><p>…. 待续</p>
 
                 
             </div>
@@ -556,7 +542,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://coco.github.io/2021/11/10/minemeld-ji-chu-gai-nian-1/">http://coco.github.io/2021/11/10/minemeld-ji-chu-gai-nian-1/</a>
+                    <a href="http://coco.github.io/2022/01/05/pyinstaller-shi-yong-ji-qiao/">http://coco.github.io/2022/01/05/pyinstaller-shi-yong-ji-qiao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -594,8 +580,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/">
-                                    <span class="chip bg-color">大数据、报警、minemeld</span>
+                                <a href="/tags/pyinstaller%E3%80%81exe%E6%89%93%E5%8C%85/">
+                                    <span class="chip bg-color">pyinstaller、exe打包</span>
                                 </a>
                             
                         </div>
@@ -639,17 +625,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/11/11/minemeld-docker-bu-shu-2/">
+                <a href="/2022/01/05/pyinstaller-shi-yong-ji-qiao/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="minemeld系列～2.minemeld-docker部署">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="pyinstaller使用技巧">
                         
-                        <span class="card-title">minemeld系列～2.minemeld-docker部署</span>
+                        <span class="card-title">pyinstaller使用技巧</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -659,26 +646,27 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MineMeld/" class="post-category">
-                                    MineMeld
+                            <a href="/categories/exe%E6%89%93%E5%8C%85/" class="post-category">
+                                    exe打包
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81%E6%8A%A5%E8%AD%A6%E3%80%81minemeld/">
-                        <span class="chip bg-color">大数据、报警、minemeld</span>
+                    <a href="/tags/pyinstaller%E3%80%81exe%E6%89%93%E5%8C%85/">
+                        <span class="chip bg-color">pyinstaller、exe打包</span>
                     </a>
                     
                 </div>
@@ -692,13 +680,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/05/logstash-grok-yu-fa-3/">
+                <a href="/2021/12/14/elasticsearch-gao-jie-shi-yong-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="logstash系列～3.logstash grok语法">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="elasticsearch系列～2.es的高阶使用">
                         
-                        <span class="card-title">logstash系列～3.logstash grok语法</span>
+                        <span class="card-title">elasticsearch系列～2.es的高阶使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -709,14 +697,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-14
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Logstash/" class="post-category">
-                                    Logstash
+                            <a href="/categories/elasticsearch/" class="post-category">
+                                    elasticsearch
                                 </a>
                             
                             
@@ -726,8 +714,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E3%80%81logstash/">
-                        <span class="chip bg-color">大数据、logstash</span>
+                    <a href="/tags/elasticsearch%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
+                        <span class="chip bg-color">elasticsearch基础操作</span>
                     </a>
                     
                 </div>
